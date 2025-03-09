@@ -63,7 +63,7 @@ namespace Game.UI.View.Components
 
             for (int i = 0; i < Content.childCount; i++)
             {
-                Destroy(Content.GetChild(i));
+                Destroy(Content.GetChild(i).gameObject);
             }
         }
 
@@ -84,6 +84,18 @@ namespace Game.UI.View.Components
         {
             if (!IsItemSelectable) return;
             ItemClicked?.Invoke(clickable as ListViewItem);
+        }
+
+        public void SelectItem(int itemIndex)
+        {
+            foreach (var listItem in listViewItems)
+            {
+                if (listItem.Index == itemIndex)
+                {
+                    listItem.SelectItem();
+                    return;
+                }
+            }
         }
 
         public void SetSelected(int itemIndex)

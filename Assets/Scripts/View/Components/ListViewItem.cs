@@ -6,6 +6,11 @@ namespace Game.UI.View.Components
         public IListData Data { get; private set; }
         public bool IsSelected { get; private set; }
 
+        public void SelectItem()
+        {
+            Click(ClickData.Left());
+        }
+
         public void SetSelected(bool selected)
         {
             IsSelected = selected;

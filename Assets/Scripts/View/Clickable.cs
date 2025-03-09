@@ -40,7 +40,7 @@ namespace Game.UI.View
             }
         }
 
-        private void Click(ClickData clickData)
+        protected void Click(ClickData clickData)
         {
             OnClicked(clickData);
             Clicked?.Invoke(this, clickData);

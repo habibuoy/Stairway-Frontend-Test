@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Linq;
 using Game.UI.Model.Inventory;
+using Game.UI.SO;
 using Game.UI.View.Components;
 using Game.UI.View.Inventory;
 using UnityEngine;
@@ -34,7 +36,16 @@ namespace Game.UI.Presenter.Inventory
 
         private void OnCraftableItemClicked(Item item)
         {
-            Debug.Log($"Craftable Item {item.ItemName} category {item.ItemCategory} clicked");
+            var craftableSO = item.ItemSO as CraftableItemSO;
+
+            view.UpdateCraftableDetail(item, craftableSO.Requirements == null 
+                ? Enumerable.Empty<CraftableItemRequirementData>() 
+                : craftableSO.Requirements.Select(ir => 
+                    {
+                        var availableItem = model.Basics.FirstOrDefault(i => i.ItemSO == ir.item);
+                        int availableAmount = availableItem == null ? 0 : availableItem.Count;
+                        return new CraftableItemRequirementData(item, ir, availableAmount);
+                    }));
         }
     }
 }

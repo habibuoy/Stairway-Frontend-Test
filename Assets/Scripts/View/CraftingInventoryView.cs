@@ -10,6 +10,7 @@ namespace Game.UI.View.Inventory
     {
         [SerializeField] private ListView backpackItemlist;
         [SerializeField] private ListView craftableItemlist;
+        [SerializeField] private CraftableItemDetailView craftableItemDetailView;
 
         public event Action<Item> BackpackItemClicked;
         public event Action<Item> CraftableItemClicked;
@@ -39,9 +40,14 @@ namespace Game.UI.View.Inventory
             craftableItemlist.UpdateList(datas);
         }
 
+        public void UpdateCraftableDetail(Item item, IEnumerable<CraftableItemRequirementData> requirements)
+        {
+            craftableItemDetailView.SetData(item, requirements);
+        }
+
         public void SelectCraftableItem(int index)
         {
-            craftableItemlist.SetSelected(index);
+            craftableItemlist.SelectItem(index);
         }
 
         private void OnBackpackItemClicked(ListViewItem listItem)

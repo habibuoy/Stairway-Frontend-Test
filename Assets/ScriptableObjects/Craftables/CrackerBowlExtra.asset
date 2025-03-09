@@ -18,6 +18,7 @@ MonoBehaviour:
   image: {fileID: 0}
   category: 5
   requirements:
-  - {fileID: 11400000, guid: 8efcc828bc201254fa26b12669f2089e, type: 2}
-  - {fileID: 11400000, guid: bdcef0ffbbf47954f87a56698e08a8d6, type: 2}
-  - {fileID: 11400000, guid: 6fcb35647c06a3d40b8b866a25378f80, type: 2}
+  - item: {fileID: 11400000, guid: 8efcc828bc201254fa26b12669f2089e, type: 2}
+    count: 3
+  - item: {fileID: 11400000, guid: 6fcb35647c06a3d40b8b866a25378f80, type: 2}
+    count: 3
