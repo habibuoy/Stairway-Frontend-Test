@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d03d729e4ce0fdc40b3da8b643fe7d15, type: 3}
+  m_Name: CrackerBowlExtra
+  m_EditorClassIdentifier: 
+  itemName: Cracker Bowl Extra
+  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+    Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+  image: {fileID: 0}
+  category: 5
+  requirements:
+  - {fileID: 11400000, guid: 8efcc828bc201254fa26b12669f2089e, type: 2}
+  - {fileID: 11400000, guid: bdcef0ffbbf47954f87a56698e08a8d6, type: 2}
+  - {fileID: 11400000, guid: 6fcb35647c06a3d40b8b866a25378f80, type: 2}
