@@ -29,13 +29,13 @@ namespace Game.UI.View
             switch (eventData.button)
             {
                 default:
-                    Clicked?.Invoke(this, ClickData.Left());
+                    Click(ClickData.Left());
                     break;
                 case PointerEventData.InputButton.Right:
-                    Clicked?.Invoke(this, ClickData.Right());
+                    Click(ClickData.Right());
                     break;
                 case PointerEventData.InputButton.Middle:
-                    Clicked?.Invoke(this, ClickData.Middle());
+                    Click(ClickData.Middle());
                     break;
             }
         }
