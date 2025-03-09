@@ -12,7 +12,8 @@ namespace Game.UI.View.Components
 
         protected override void OnSetData()
         {
-            var data = Data as ItemData;
+            var data = Data as CraftableRecipeItemData;
+            
             itemImage.sprite = data.Item.Image;
             highlightImage.gameObject.SetActive(false);
             craftableImage.gameObject.SetActive(false);

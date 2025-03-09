@@ -17,8 +17,11 @@ namespace Game.UI.View.Components
         [SerializeField] private TextMeshProUGUI categoryText;
         [SerializeField] private ListView ingredientList;
 
-        public void SetData(Item item, IEnumerable<CraftableItemRequirementData> requirements)
+        public void SetData(CraftableRecipeItemData craftableRecipeItemData)
         {
+            var item = craftableRecipeItemData.Item;
+            var availabilities = craftableRecipeItemData.AvailabilityData;
+            
             if (item.ItemSO is not CraftableItemSO craftableItem) return;
 
             nameText.text = item.ItemName;
@@ -27,13 +30,13 @@ namespace Game.UI.View.Components
             descriptionText.text = item.ItemDescription;
             categoryText.text = item.ItemCategory.AsString();
 
-            if (requirements == Enumerable.Empty<CraftableItemRequirementData>())
+            if (availabilities == Enumerable.Empty<CraftableRecipeItemData>())
             {
                 ingredientList.ClearList();
                 return;
             }
 
-            ingredientList.UpdateList(requirements.ToList<IListData>());
+            ingredientList.UpdateList(availabilities.ToList<IListData>());
         }
     }
 }

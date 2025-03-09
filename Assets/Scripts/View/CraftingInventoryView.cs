@@ -12,8 +12,8 @@ namespace Game.UI.View.Inventory
         [SerializeField] private ListView craftableItemlist;
         [SerializeField] private CraftableItemDetailView craftableItemDetailView;
 
-        public event Action<Item> BackpackItemClicked;
-        public event Action<Item> CraftableItemClicked;
+        public event Action<ItemData> BackpackItemClicked;
+        public event Action<CraftableRecipeItemData> CraftableItemClicked;
 
         public override void Initialize()
         {
@@ -40,9 +40,9 @@ namespace Game.UI.View.Inventory
             craftableItemlist.UpdateList(datas);
         }
 
-        public void UpdateCraftableDetail(Item item, IEnumerable<CraftableItemRequirementData> requirements)
+        public void UpdateCraftableDetail(CraftableRecipeItemData craftableRecipeItemData)
         {
-            craftableItemDetailView.SetData(item, requirements);
+            craftableItemDetailView.SetData(craftableRecipeItemData);
         }
 
         public void SelectCraftableItem(int index)
@@ -52,13 +52,13 @@ namespace Game.UI.View.Inventory
 
         private void OnBackpackItemClicked(ListViewItem listItem)
         {
-            BackpackItemClicked?.Invoke((listItem.Data as ItemData).Item);
+            BackpackItemClicked?.Invoke(listItem.Data as ItemData);
         }
 
         private void OnCraftableItemClicked(ListViewItem listItem)
         {
             craftableItemlist.SetSelected(listItem.Index);
-            CraftableItemClicked?.Invoke((listItem.Data as ItemData).Item);
+            CraftableItemClicked?.Invoke(listItem.Data as CraftableRecipeItemData);
         }
     }
 }

@@ -7,9 +7,9 @@ namespace Game.UI.SO
     [CreateAssetMenu(fileName = "CraftableItem", menuName = "Inventory/Craftable Item")]
     public class CraftableItemSO : ItemSO
     {
-        [SerializeField] private CraftableItemRequirement[] requirements;
+        [SerializeField] private RecipeItem[] recipe;
 
-        public IReadOnlyCollection<CraftableItemRequirement> Requirements => requirements;
+        public IReadOnlyCollection<RecipeItem> Recipe => recipe;
 
         private void OnValidate()
         {
@@ -18,7 +18,7 @@ namespace Game.UI.SO
     }
 
     [Serializable]
-    public class CraftableItemRequirement
+    public class RecipeItem
     {
         public ItemSO item;
         public int count;

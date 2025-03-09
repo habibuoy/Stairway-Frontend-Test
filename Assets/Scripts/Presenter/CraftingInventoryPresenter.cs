@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Game.UI.Model.Inventory;
 using Game.UI.SO;
@@ -16,7 +16,23 @@ namespace Game.UI.Presenter.Inventory
         protected override void OnInitialize()
         {
             view.UpdateBackpackItems(model.Basics.Select(i => new ItemData(i)).ToList<IListData>());
-            view.UpdateCraftableItems(model.Craftables.Select(i => new ItemData(i)).ToList<IListData>());
+            view.UpdateCraftableItems(model.Craftables.Select(item => 
+            {
+                var craftableSO = item.ItemSO as CraftableItemSO;
+                List<CraftableRecipeAvailability> craftableRecipeAvailabilities = new();
+                if (craftableSO.Recipe != null)
+                {
+                    foreach (var recipeItem in craftableSO.Recipe)
+                    {
+                        var availableItem = model.AllItems.FirstOrDefault(i => i.ItemSO == recipeItem.item);
+                        int availableAmount = availableItem == null ? 0 : availableItem.Count;
+                        craftableRecipeAvailabilities.Add(new CraftableRecipeAvailability(recipeItem, availableAmount));
+                    }
+                }
+
+                var recipeData = new CraftableRecipeItemData(item, craftableRecipeAvailabilities);
+                return recipeData;
+            }).ToList<IListData>());
             view.BackpackItemClicked += OnBackpackItemClicked;
             view.CraftableItemClicked += OnCraftableItemClicked;
 
@@ -29,23 +45,14 @@ namespace Game.UI.Presenter.Inventory
             view.CraftableItemClicked -= OnCraftableItemClicked;
         }
 
-        private void OnBackpackItemClicked(Item item)
+        private void OnBackpackItemClicked(ItemData itemData)
         {
-            Debug.Log($"Item {item.ItemName} category {item.ItemCategory} count {item.Count} clicked");
+            Debug.Log($"Item {itemData.Item.ItemName} category {itemData.Item.ItemCategory} count {itemData.Item.Count} clicked");
         }
 
-        private void OnCraftableItemClicked(Item item)
+        private void OnCraftableItemClicked(CraftableRecipeItemData itemData)
         {
-            var craftableSO = item.ItemSO as CraftableItemSO;
-
-            view.UpdateCraftableDetail(item, craftableSO.Requirements == null 
-                ? Enumerable.Empty<CraftableItemRequirementData>() 
-                : craftableSO.Requirements.Select(ir => 
-                    {
-                        var availableItem = model.Basics.FirstOrDefault(i => i.ItemSO == ir.item);
-                        int availableAmount = availableItem == null ? 0 : availableItem.Count;
-                        return new CraftableItemRequirementData(item, ir, availableAmount);
-                    }));
+            view.UpdateCraftableDetail(itemData);
         }
     }
 }

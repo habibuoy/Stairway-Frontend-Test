@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Game.UI.View.Components
 {
-    public class CraftableRequirementListItem : ListViewItem
+    public class CraftableRecipeListItem : ListViewItem
     {
         private static Color sufficeColor = Color.black;
         private static Color insufficientColor = Color.red;
@@ -15,21 +15,23 @@ namespace Game.UI.View.Components
 
         protected override void OnSetData()
         {
-            if (Data is not CraftableItemRequirementData data) return;
-            if (data.Requirement == null
-                || data.Requirement.item == null) return;
+            if (Data is not CraftableRecipeAvailability data) return;
+            if (data.ItemRequirement == null
+                || data.ItemRequirement.item == null) return;
 
-            image.sprite = data.Requirement.item.Image;
-            nameText.text = data.Requirement.item.ItemName;
+            var item = data.ItemRequirement.item;
 
-            bool isSufficient = data.IsSufficient();
+            image.sprite = item.Image;
+            nameText.text = item.ItemName;
+
+            bool isSufficient = data.GetAvailabilityCount() > 0;
             string style = isSufficient ? "<b>" : "";
             string styleEnd = isSufficient ? "</b>" : "";
             
             string color = ColorUtility.ToHtmlStringRGBA(isSufficient
                 ? sufficeColor 
                 : insufficientColor);
-            countText.text = $"<color=#{color}>{style}{data.AvailableAmount}</color>{styleEnd} / {data.Requirement.count}";
+            countText.text = $"<color=#{color}>{style}{data.AvailableAmount}</color>{styleEnd} / {data.ItemRequirement.count}";
         }
     }
 }

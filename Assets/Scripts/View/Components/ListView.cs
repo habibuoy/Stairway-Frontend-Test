@@ -27,7 +27,7 @@ namespace Game.UI.View.Components
                 || listItemPrefab == null
                 || !listItemPrefab.TryGetComponent<ListViewItem>(out var component))
             {
-                Debug.LogError($"{nameof(ListView)}: Error while initializing list");
+                Debug.LogError($"{nameof(ListView)} ({name}): Error while updating list", gameObject);
                 return;
             }
 
