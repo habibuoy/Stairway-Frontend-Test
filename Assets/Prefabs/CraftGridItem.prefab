@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5666853281251811367}
+  - component: {fileID: 2288784674320315362}
   m_Layer: 5
   m_Name: CraftGridItem
   m_TagString: Untagged
@@ -40,6 +41,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2288784674320315362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739902993026899360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18a851cb1c13fd4e91e348f212d39a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightImage: {fileID: 1472462930647091819}
+  itemImage: {fileID: 4301610661053714707}
+  craftableImage: {fileID: 7079294622726459996}
+  pinIconImage: {fileID: 2516062976327240831}
 --- !u!1 &3493540848565218184
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +294,7 @@ GameObject:
   - component: {fileID: 2015885104476211967}
   - component: {fileID: 7079294622726459996}
   m_Layer: 5
-  m_Name: CraftIconImage
+  m_Name: CraftableIconImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

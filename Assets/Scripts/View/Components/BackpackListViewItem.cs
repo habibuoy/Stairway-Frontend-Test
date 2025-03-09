@@ -9,10 +9,10 @@ namespace Game.UI.View.Components
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
 
-        public override void OnSetData()
+        protected override void OnSetData()
         {
             var data = Data as ItemData;
-            
+
             image.sprite = data.Item.Image;
             countText.text = data.Item.Count.ToString();
         }

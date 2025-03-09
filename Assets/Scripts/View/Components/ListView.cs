@@ -13,8 +13,9 @@ namespace Game.UI.View.Components
         
         private readonly List<ListViewItem> listViewItems = new();
 
+        public bool IsItemSelectable { get; private set; }
         public RectTransform Content => scrollRect.content;
-        public event Action<IListData> ItemClicked;
+        public event Action<ListViewItem> ItemClicked;
 
         public void UpdateList(List<IListData> listData)
         {
@@ -81,7 +82,21 @@ namespace Game.UI.View.Components
 
         private void OnItemClicked(Clickable clickable, ClickData clickData)
         {
-            ItemClicked?.Invoke((clickable as ListViewItem).Data);
+            if (!IsItemSelectable) return;
+            ItemClicked?.Invoke(clickable as ListViewItem);
+        }
+
+        public void SetSelected(int itemIndex)
+        {
+            foreach (var listItem in listViewItems)
+            {
+                listItem.SetSelected(listItem.Index == itemIndex);
+            }
+        }
+
+        public void ToggleItemSelectable(bool selectable)
+        {
+            IsItemSelectable = selectable;
         }
     }
 }
