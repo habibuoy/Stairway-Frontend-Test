@@ -16,7 +16,7 @@ MonoBehaviour:
   description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
     Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
   image: {fileID: 0}
-  category: 5
+  category: 6
   recipe:
   - item: {fileID: 11400000, guid: bdcef0ffbbf47954f87a56698e08a8d6, type: 2}
     count: 15

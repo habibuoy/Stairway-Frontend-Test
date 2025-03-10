@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d03d729e4ce0fdc40b3da8b643fe7d15, type: 3}
-  m_Name: CrackerBowlExtra
+  m_Name: TroubleForgetterPotion
   m_EditorClassIdentifier: 
-  itemName: Cracker Bowl Extra
-  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-    Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+  itemName: Trouble Forgetter Potion
+  description: 
   image: {fileID: 0}
-  category: 6
+  category: 4
   recipe:
-  - item: {fileID: 11400000, guid: 6fcb35647c06a3d40b8b866a25378f80, type: 2}
-    count: 3
-  - item: {fileID: 11400000, guid: 8efcc828bc201254fa26b12669f2089e, type: 2}
-    count: 3
+  - item: {fileID: 11400000, guid: 814a9310141003b49ba788620223ca24, type: 2}
+    count: 1
+  - item: {fileID: 11400000, guid: d07f62fc2d0be754984739e2ae7be873, type: 2}
+    count: 1
