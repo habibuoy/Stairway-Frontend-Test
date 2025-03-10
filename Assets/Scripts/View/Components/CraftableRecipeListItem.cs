@@ -15,10 +15,10 @@ namespace Game.UI.View.Components
         protected override void OnSetData()
         {
             if (Data is not CraftableRecipeAvailability data) return;
-            if (data.ItemRequirement == null
-                || data.ItemRequirement.item == null) return;
+            if (data.ItemRecipe == null
+                || data.ItemRecipe.item == null) return;
 
-            var item = data.ItemRequirement.item;
+            var item = data.ItemRecipe.item;
 
             image.sprite = item.Image;
             nameText.text = item.ItemName;
@@ -30,7 +30,7 @@ namespace Game.UI.View.Components
             string color = isSufficient
                 ? ColorExtensions.GetSufficientCraftStringColor()
                 : ColorExtensions.GetInsufficientCraftStringColor();
-            countText.text = $"<color={color}>{style}{data.AvailableAmount}</color>{styleEnd} / {data.ItemRequirement.count}";
+            countText.text = $"<color={color}>{style}{data.AvailableAmount}</color>{styleEnd} / {data.ItemRecipe.count}";
         }
     }
 }

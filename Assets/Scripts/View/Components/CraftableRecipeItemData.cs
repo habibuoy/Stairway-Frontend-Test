@@ -31,8 +31,8 @@ namespace Game.UI.View.Components
             {
                 var data = AvailabilityData[i];
                 if (data == null
-                    || data.ItemRequirement == null
-                    || data.ItemRequirement.item == null)
+                    || data.ItemRecipe == null
+                    || data.ItemRecipe.item == null)
                 {
                     // immediately return if there is error
                     return;
@@ -57,26 +57,26 @@ namespace Game.UI.View.Components
 
     public class CraftableRecipeAvailability : IListData
     {
-        public RecipeItem ItemRequirement { get; private set; }
+        public RecipeItem ItemRecipe { get; private set; }
         public int AvailableAmount { get; private set; }
 
         private int availabilityCount;
 
         public CraftableRecipeAvailability(RecipeItem item, int amount)
         {
-            ItemRequirement = item;
+            ItemRecipe = item;
             AvailableAmount = amount;
             UpdateAvailabilityCount();
         }
 
         public bool IsBlankData()
         {
-            return ItemRequirement.item == null;
+            return ItemRecipe.item == null;
         }
 
         private void UpdateAvailabilityCount()
         {
-            availabilityCount = Mathf.FloorToInt(AvailableAmount / ItemRequirement.count);
+            availabilityCount = Mathf.FloorToInt(AvailableAmount / ItemRecipe.count);
         }
 
         public int GetAvailabilityCount()
@@ -86,7 +86,7 @@ namespace Game.UI.View.Components
 
         public int CompareTo(IListData other)
         {
-            return ItemRequirement.item.ItemName.CompareTo((other as CraftableRecipeItemData).Item.ItemName);
+            return ItemRecipe.item.ItemName.CompareTo((other as CraftableRecipeItemData).Item.ItemName);
         }
     }
 }

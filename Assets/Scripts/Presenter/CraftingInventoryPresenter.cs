@@ -16,6 +16,8 @@ namespace Game.UI.Presenter.Inventory
 
         protected override void OnInitialize()
         {
+            model.ItemChanged += OnModelItemChanged;
+            model.ItemsChanged += OnModelItemsChanged;
             view.UpdateBackpackItems(GetBasicItemDatas());
             view.UpdateCraftableItems(GetCraftableItemDatas());
             view.BackpackItemClicked += OnBackpackItemClicked;
@@ -30,6 +32,8 @@ namespace Game.UI.Presenter.Inventory
 
         protected override void OnDestroy()
         {
+            model.ItemChanged -= OnModelItemChanged;
+            model.ItemsChanged -= OnModelItemsChanged;
             view.BackpackItemClicked -= OnBackpackItemClicked;
             view.CraftableItemClicked -= OnCraftableItemClicked;
             view.CraftableItemBegunHover -= OnCraftableBegunHovered;
@@ -38,15 +42,65 @@ namespace Game.UI.Presenter.Inventory
             view.CraftablePinInputted -= OnCraftableItemInputtedPin;
         }
 
+        private void OnModelItemChanged(Item item)
+        {
+            Debug.Log($"Model items changed: {item.ItemName} ({item.Count})");
+        }
+
+        private void OnModelItemsChanged()
+        {
+            Debug.Log($"Current items count: {model.AllItems.Count()}");
+        }
+
         private void OnBackpackItemClicked(ItemData itemData)
         {
             Debug.Log($"Item {itemData.Item.ItemName} category {itemData.Item.ItemCategory} count {itemData.Item.Count} clicked");
         }
 
-        private void OnCraftableItemClicked(CraftableRecipeItemData itemData)
+        private void OnCraftableItemClicked(CraftableRecipeItemData itemData, bool currentlySelected)
         {
-            view.HideCraftableHoverInfo();
-            view.UpdateCraftableDetail(itemData);
+            if (currentlySelected)
+            {
+                CraftItem(itemData);
+            }
+            else
+            {
+                view.HideCraftableHoverInfo();
+                view.UpdateCraftableDetail(itemData);
+            }
+        }
+        
+        private void CraftItem(CraftableRecipeItemData itemData, bool once = true)
+        {
+            int craftabilityCount = itemData.GetCraftabilityCount();
+            if (craftabilityCount <= 0) return;
+
+            var craftableItem = new Item(itemData.Item.ItemSO, once ? 1 : craftabilityCount);
+            foreach (var availability in itemData.AvailabilityData)
+            {
+                var recipeItem = model.AllItems.FirstOrDefault(item => 
+                    item.ItemSO == availability.ItemRecipe.item);
+
+                if (recipeItem == null)
+                {
+                    continue;
+                }
+
+                int craftRemainder = once ? availability.AvailableAmount - availability.ItemRecipe.count 
+                    : availability.AvailableAmount % availability.ItemRecipe.count;
+
+                if (craftRemainder == 0)
+                {
+                    model.RemoveBasicItem(recipeItem);
+                }
+                else
+                {
+                    model.UpdateBasicItem(recipeItem, craftRemainder);
+                }
+            }
+            model.AddCraftableItem(craftableItem);
+            view.UpdateBackpackItems(GetBasicItemDatas());
+            view.UpdateCraftableItems(GetCraftableItemDatas());
         }
 
         private void OnCraftableBegunHovered(CraftableRecipeItemData itemData)

@@ -16,9 +16,10 @@ namespace Game.UI.View.Inventory
         [SerializeField] private KeyCode pinCraftableKeyCode;
 
         private ItemCategory currentCategory;
+        private ListViewItem selectedCraftableItem;
 
         public event Action<ItemData> BackpackItemClicked;
-        public event Action<CraftableRecipeItemData> CraftableItemClicked;
+        public event Action<CraftableRecipeItemData, bool> CraftableItemClicked;
         public event Action<CraftableRecipeItemData> CraftableItemBegunHover;
         public event Action<CraftableRecipeItemData> CraftableItemEndedHover;
         public event Action<ItemCategory> CategoryTabChanged;
@@ -120,13 +121,10 @@ namespace Game.UI.View.Inventory
 
         public void PinCraftableItem(CraftableRecipeItemData craftableRecipeItemData)
         {
-            var listItem = craftableItemlist.GetListViewItem(li => li.Data == craftableRecipeItemData);
-            if (listItem == null)
-            {
-                return;
-            }
+            if (selectedCraftableItem == null
+                || selectedCraftableItem.Data != craftableRecipeItemData) return;
 
-            craftableItemlist.SetPinned(listItem.Index, !listItem.IsPinned);
+            craftableItemlist.SetPinned(selectedCraftableItem.Index, !selectedCraftableItem.IsPinned);
         }
 
         private bool ListCategorySorter(ListViewItem listItem)
@@ -157,7 +155,9 @@ namespace Game.UI.View.Inventory
         private void OnCraftableItemClicked(ListViewItem listItem)
         {
             craftableItemlist.SetSelected(listItem.Index);
-            CraftableItemClicked?.Invoke(listItem.Data as CraftableRecipeItemData);
+            CraftableItemClicked?.Invoke(listItem.Data as CraftableRecipeItemData,
+                selectedCraftableItem == listItem);
+            selectedCraftableItem = listItem;
         }
 
         private void OnCraftableItemBegunHover(ListViewItem listItem)
@@ -176,6 +176,7 @@ namespace Game.UI.View.Inventory
         {
             if (Enum.TryParse<ItemCategory>(path, out var result))
             {
+                selectedCraftableItem = null;
                 CategoryTabChanged?.Invoke(result);
             }
         }

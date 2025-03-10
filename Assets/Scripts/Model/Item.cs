@@ -19,6 +19,11 @@ namespace Game.UI.Model.Inventory
             Count = count;
         }
 
+        public void UpdateCount(int count)
+        {
+            Count = count;
+        }
+
         public bool IsBlank()
         {
             return ItemSO == null && Count == -1;

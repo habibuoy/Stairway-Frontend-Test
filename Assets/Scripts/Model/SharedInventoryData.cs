@@ -6,13 +6,30 @@ namespace Game.UI.Inventory
 {
     public class SharedInventoryData : ISharedInventoryData
     {
-        private readonly List<Item> Items = new();
+        private readonly List<Item> items = new();
 
-        public IReadOnlyList<Item> OwnedItems => Items;
+        public IReadOnlyList<Item> OwnedItems => items;
 
         public SharedInventoryData(Item[] items)
         {
-            Items.AddRange(items);
+            this.items.AddRange(items);
+        }
+
+        public bool AddItem(Item item)
+        {
+            if (items.Find(i => i.ItemSO == item.ItemSO) is Item existing)
+            {
+                existing.UpdateCount(existing.Count + item.Count);
+                return true;
+            }
+
+            items.Add(item);
+            return true;
+        }
+
+        public bool RemoveItem(Item item)
+        {
+            return items.Remove(item);
         }
     }
 }
