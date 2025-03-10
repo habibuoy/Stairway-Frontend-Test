@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,11 +45,17 @@ namespace Game.UI.View.Components
             {
                 itemImage.gameObject.SetActive(true);
                 craftableImage.gameObject.SetActive(true);
-                pinIconImage.gameObject.SetActive(true);
+                pinIconImage.gameObject.SetActive(IsPinned);
                 highlightImage.gameObject.SetActive(IsSelected);
                 placeholderImage.gameObject.SetActive(false);
             }
             UpdateBackgroundColor();
+        }
+
+        protected override void OnSetPinned()
+        {
+            base.OnSetPinned();
+            pinIconImage.gameObject.SetActive(IsPinned);
         }
 
         private void UpdateBackgroundColor()

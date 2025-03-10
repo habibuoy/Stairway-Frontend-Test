@@ -13,6 +13,7 @@ namespace Game.UI.View.Inventory
         [SerializeField] private CraftableItemDetailView craftableItemDetailView;
         [SerializeField] private CraftableHoverInfo craftableHoverInfo;
         [SerializeField] private TabView categoryTabView;
+        [SerializeField] private KeyCode pinCraftableKeyCode;
 
         private ItemCategory currentCategory;
 
@@ -21,6 +22,7 @@ namespace Game.UI.View.Inventory
         public event Action<CraftableRecipeItemData> CraftableItemBegunHover;
         public event Action<CraftableRecipeItemData> CraftableItemEndedHover;
         public event Action<ItemCategory> CategoryTabChanged;
+        public event Action<CraftableRecipeItemData> CraftablePinInputted; 
 
         public override void Initialize()
         {
@@ -42,6 +44,16 @@ namespace Game.UI.View.Inventory
             craftableItemlist.ItemBegunHover -= OnCraftableItemBegunHover;
             craftableItemlist.ItemEndedHover -= OnCraftableItemEndedHover;
             categoryTabView.TabChanged -= OnCategoryTabChanged;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyUp(pinCraftableKeyCode))
+            {
+                var selected = craftableItemlist.GetListViewItem(item => item.IsSelected);
+                if (selected == null) return;
+                CraftablePinInputted?.Invoke(selected.Data as CraftableRecipeItemData);
+            }
         }
 
         public void UpdateBackpackItems(List<IListData> datas)
@@ -104,6 +116,17 @@ namespace Game.UI.View.Inventory
             
             backpackItemlist.SortItems(ListCategorySorter, CategoryIncludedListItemAction, 
                 CategoryExcludedListItemAction);
+        }
+
+        public void PinCraftableItem(CraftableRecipeItemData craftableRecipeItemData)
+        {
+            var listItem = craftableItemlist.GetListViewItem(li => li.Data == craftableRecipeItemData);
+            if (listItem == null)
+            {
+                return;
+            }
+
+            craftableItemlist.SetPinned(listItem.Index, !listItem.IsPinned);
         }
 
         private bool ListCategorySorter(ListViewItem listItem)

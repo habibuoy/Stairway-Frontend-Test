@@ -4,7 +4,8 @@ using UnityEngine.EventSystems;
 
 namespace Game.UI.View.Components
 {
-    public abstract class ListViewItem : Clickable, IPointerEnterHandler, IPointerExitHandler
+    public abstract class ListViewItem : Clickable, IPointerEnterHandler, IPointerExitHandler, 
+        IComparable<ListViewItem>
     {
         private RectTransform rectTransform;
 
@@ -13,6 +14,7 @@ namespace Game.UI.View.Components
         public bool IsSelected { get; private set; }
         public bool IsHovered { get; private set; }
         public bool IsBlanked { get; private set; }
+        public bool IsPinned { get; private set; }
         public RectTransform RectTransform => rectTransform;
 
         public event Action<ListViewItem> HoverBegun;
@@ -46,6 +48,12 @@ namespace Game.UI.View.Components
             OnSetHovered();
         }
 
+        public void SetPinned(bool pinned = true)
+        {
+            IsPinned = pinned;
+            OnSetPinned();
+        }
+
         public void SetData(IListData data, int index)
         {
             Data = data;
@@ -63,6 +71,7 @@ namespace Game.UI.View.Components
         protected virtual void OnSetSelected() { }
         protected virtual void OnSetHovered() { }
         protected virtual void OnSetBlanked() { }
+        protected virtual void OnSetPinned() { }
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
@@ -74,6 +83,31 @@ namespace Game.UI.View.Components
         {
             if (!Interactable) return;
             HoverEnded?.Invoke(this);
+        }
+
+        int IComparable<ListViewItem>.CompareTo(ListViewItem other)
+        {
+            if (IsPinned && !other.IsPinned)
+            {
+                return -1;
+            }
+
+            if (!IsPinned && other.IsPinned)
+            {
+                return 1;
+            }
+
+            if (IsBlanked && !other.IsBlanked)
+            {
+                return 1;
+            }
+
+            if (!IsBlanked && other.IsBlanked)
+            {
+                return -1;
+            }
+
+            return Data.CompareTo(other.Data);
         }
     }
 }

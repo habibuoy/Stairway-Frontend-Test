@@ -12,8 +12,11 @@ namespace Game.UI.View.Components
         [SerializeField] private ScrollRect scrollRect;
         
         private readonly List<ListViewItem> listViewItems = new();
-        private readonly List<ListViewItem> sorterIncludedItems = new();
-        private readonly List<ListViewItem> sorterExcludedItems = new();
+        private readonly List<ListViewItem> sortedAndPinnedListViewItems = new();
+
+        private Func<ListViewItem, bool> sorterInclusionFunc;
+        private Action<ListViewItem> sorterIncludedAction;
+        private Action<ListViewItem> sorterExcludedAction;
 
         public bool IsItemSelectable { get; private set; }
         public bool IsItemHoverable { get; private set; }
@@ -57,6 +60,8 @@ namespace Game.UI.View.Components
                 customConfiguration?.Invoke(listItem);
                 listViewItems.Add(listItem);
             }
+
+            sortedAndPinnedListViewItems.AddRange(listViewItems);
         }
 
         public void ClearList()
@@ -80,34 +85,14 @@ namespace Game.UI.View.Components
             Action<ListViewItem> callbackForIncluded, 
             Action<ListViewItem> callbackForExcluded)
         {
-            sorterIncludedItems.Clear();
-            sorterExcludedItems.Clear();
-            
-            foreach (var listItem in listViewItems)
-            {
-                if (include.Invoke(listItem))
-                {
-                    sorterIncludedItems.Add(listItem);
-                }
-                else
-                {
-                    sorterExcludedItems.Add(listItem);
-                }
-            }
+            sortedAndPinnedListViewItems.Clear();
 
-            for (int i = 0; i < sorterIncludedItems.Count; i++)
-            {
-                var item = sorterIncludedItems[i];
-                ArrangePositionAndIndex(item, i);
-                callbackForIncluded?.Invoke(item);
-            }
+            sorterInclusionFunc = include;
+            sorterIncludedAction = callbackForIncluded;
+            sorterExcludedAction = callbackForExcluded;
 
-            for (int i = 0; i < sorterExcludedItems.Count; i++)
-            {
-                var item = sorterExcludedItems[i];
-                ArrangePositionAndIndex(item, sorterIncludedItems.Count + i);
-                callbackForExcluded?.Invoke(item);
-            }
+            UpdateSortedList();
+            RearrangeItemPositions();
         }
 
         public void Destroy()
@@ -121,12 +106,6 @@ namespace Game.UI.View.Components
             {
                 listItem.Clicked -= OnItemClicked;
             }
-        }
-
-        private void ArrangePositionAndIndex(ListViewItem item, int index)
-        {
-            item.SetIndex(index);
-            item.transform.SetSiblingIndex(index);
         }
 
         private void OnItemClicked(Clickable clickable, ClickData clickData)
@@ -177,6 +156,70 @@ namespace Game.UI.View.Components
         public void ToggleItemSelectable(bool selectable)
         {
             IsItemSelectable = selectable;
+        }
+
+        public void SetPinned(int itemIndex, bool pinned = true)
+        {
+            foreach (var listItem in listViewItems)
+            {
+                if (listItem.Index == itemIndex)
+                {
+                    listItem.SetPinned(pinned);
+                }
+            }
+
+            if (!UpdateSortedList())
+            {
+                sortedAndPinnedListViewItems.Clear();
+                sortedAndPinnedListViewItems.AddRange(listViewItems);
+                sortedAndPinnedListViewItems.Sort();
+            }
+
+            RearrangeItemPositions();
+        }
+
+        private bool UpdateSortedList()
+        {
+            if (sorterInclusionFunc == null) return false;
+
+            foreach (var listItem in listViewItems)
+            {
+                if (sorterInclusionFunc.Invoke(listItem) || listItem.IsPinned)
+                {
+                    sorterIncludedAction?.Invoke(listItem);
+                    sortedAndPinnedListViewItems.Add(listItem);
+                }
+                else
+                {
+                    sorterExcludedAction?.Invoke(listItem);
+                }
+            }
+
+            sortedAndPinnedListViewItems.Sort();
+
+            foreach (var listItem in listViewItems)
+            {
+                if (!sortedAndPinnedListViewItems.Contains(listItem))
+                {
+                    sortedAndPinnedListViewItems.Add(listItem);
+                }
+            }
+
+            return true;
+        }
+
+        private void RearrangeItemPositions()
+        {
+            for (int i = 0; i < sortedAndPinnedListViewItems.Count; i++)
+            {
+                ArrangePositionAndIndex(sortedAndPinnedListViewItems[i], i);
+            }
+        }
+
+        private void ArrangePositionAndIndex(ListViewItem item, int index)
+        {
+            item.SetIndex(index);
+            item.transform.SetSiblingIndex(index);
         }
 
         public ListViewItem GetListViewItem(Predicate<ListViewItem> predicate)

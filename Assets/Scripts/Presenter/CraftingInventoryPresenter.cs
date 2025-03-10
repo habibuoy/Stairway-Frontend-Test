@@ -23,6 +23,7 @@ namespace Game.UI.Presenter.Inventory
             view.CraftableItemBegunHover += OnCraftableBegunHovered;
             view.CraftableItemEndedHover += OnCraftableEndedHovered;
             view.CategoryTabChanged += OnCategoryTabChanged;
+            view.CraftablePinInputted += OnCraftableItemInputtedPin;
 
             view.SelectCraftableItem(0);
         }
@@ -33,6 +34,8 @@ namespace Game.UI.Presenter.Inventory
             view.CraftableItemClicked -= OnCraftableItemClicked;
             view.CraftableItemBegunHover -= OnCraftableBegunHovered;
             view.CraftableItemEndedHover -= OnCraftableEndedHovered;
+            view.CategoryTabChanged -= OnCategoryTabChanged;
+            view.CraftablePinInputted -= OnCraftableItemInputtedPin;
         }
 
         private void OnBackpackItemClicked(ItemData itemData)
@@ -110,6 +113,11 @@ namespace Game.UI.Presenter.Inventory
             view.SortListByCategory(category);
             view.HideCraftableHoverInfo();
             view.SelectCraftableItem(0);
+        }
+
+        private void OnCraftableItemInputtedPin(CraftableRecipeItemData craftableRecipeItemData)
+        {
+            view.PinCraftableItem(craftableRecipeItemData);
         }
     }
 }

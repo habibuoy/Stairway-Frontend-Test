@@ -83,5 +83,10 @@ namespace Game.UI.View.Components
         {
             return availabilityCount;
         }
+
+        public int CompareTo(IListData other)
+        {
+            return ItemRequirement.item.ItemName.CompareTo((other as CraftableRecipeItemData).Item.ItemName);
+        }
     }
 }

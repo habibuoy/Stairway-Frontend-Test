@@ -38,6 +38,16 @@ namespace Game.UI.View.Components
             }
         }
 
+        int IComparable<IListData>.CompareTo(IListData other)
+        {
+            if (other is ItemData itemData)
+            {
+                return CompareTo(itemData);
+            }
+
+            return 0;
+        }
+
         public ItemData(Item item)
         {
             Item = item;
