@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: Cracker Bowl Extra
   description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
     Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: dc210fb96b0ab11468a6a99309cf5f55, type: 3}
   category: 6
   recipe:
   - item: {fileID: 11400000, guid: 6fcb35647c06a3d40b8b866a25378f80, type: 2}

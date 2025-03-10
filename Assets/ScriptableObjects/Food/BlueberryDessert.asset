@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Blueberry Dessert
   description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
     Ipsum Lorem Ipsum Lorem Ipsum
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 055db8ce6c926124bacbb3216f40ac4a, type: 3}
   category: 5

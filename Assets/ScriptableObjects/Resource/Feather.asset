@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Feather
   description: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 980e145e7d6867f4eaaa70e90d0e928d, type: 3}
   category: 1

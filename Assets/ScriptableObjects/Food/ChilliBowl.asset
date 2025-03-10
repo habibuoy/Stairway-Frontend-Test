@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b34012a2fee754094727650ba2fb69, type: 3}
   m_Name: ChilliBowl
   m_EditorClassIdentifier: 
-  itemName: Egg Basket
+  itemName: Chilli Bowl
   description: A basket of eggs
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 4e91672c0a9122944b236cf1fa7a1e84, type: 3}
   category: 5

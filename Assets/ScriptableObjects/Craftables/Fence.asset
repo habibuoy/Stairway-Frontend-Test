@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Fence
   description: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: a382b2f39d423db488e7f2c718625b0e, type: 3}
   category: 5
   recipe:
   - item: {fileID: 11400000, guid: ead3608e47146684d8827c9824247767, type: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Dream Inducer Potion
   description: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: ead321638c94d4f4d86e9aa96ea94d14, type: 3}
   category: 4
   recipe:
   - item: {fileID: 11400000, guid: a8816ef44aa892e4da95b86171351c92, type: 2}

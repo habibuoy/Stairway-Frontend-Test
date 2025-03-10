@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Brown Mushroom
   description: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 267262da8ceb9da4486f1b39df472a7a, type: 3}
   category: 2
