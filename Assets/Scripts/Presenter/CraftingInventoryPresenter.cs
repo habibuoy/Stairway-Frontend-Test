@@ -107,7 +107,8 @@ namespace Game.UI.Presenter.Inventory
 
         private void OnCategoryTabChanged(ItemCategory category)
         {
-            view.SortCraftableListByCategory(category);
+            view.SortListByCategory(category);
+            view.HideCraftableHoverInfo();
             view.SelectCraftableItem(0);
         }
     }

@@ -49,9 +49,14 @@ namespace Game.UI.View.Components
         public void SetData(IListData data, int index)
         {
             Data = data;
-            Index = index;
+            SetIndex(index);
             if (data.IsBlankData()) return;
             OnSetData();
+        }
+
+        public void SetIndex(int index)
+        {
+            Index = index;
         }
 
         protected abstract void OnSetData();

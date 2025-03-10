@@ -22,9 +22,7 @@ namespace Game.UI.View.Components
             craftableImage.gameObject.SetActive(data.IsCraftable());
             pinIconImage.gameObject.SetActive(false);
             placeholderImage.gameObject.SetActive(false);
-            var color = backgroundImage.color;
-            color.a = data.IsCraftable() ? 1f : 0.5f;
-            backgroundImage.color = color;
+            UpdateBackgroundColor();
         }
 
         protected override void OnSetSelected()
@@ -42,11 +40,27 @@ namespace Game.UI.View.Components
                 craftableImage.gameObject.SetActive(false);
                 pinIconImage.gameObject.SetActive(false);
                 highlightImage.gameObject.SetActive(false);
-                var color = backgroundImage.color;
-                color.a = 0.5f;
-                backgroundImage.color = color;
                 placeholderImage.gameObject.SetActive(true);
             }
+            else
+            {
+                itemImage.gameObject.SetActive(true);
+                craftableImage.gameObject.SetActive(true);
+                pinIconImage.gameObject.SetActive(true);
+                highlightImage.gameObject.SetActive(IsSelected);
+                placeholderImage.gameObject.SetActive(false);
+            }
+            UpdateBackgroundColor();
+        }
+
+        private void UpdateBackgroundColor()
+        {
+            var color = backgroundImage.color;
+            color.a = IsBlanked 
+                ? 0.5f 
+                : (Data as CraftableRecipeItemData).IsCraftable() 
+                    ? 1f : 0.5f;
+            backgroundImage.color = color;
         }
     }
 }

@@ -27,6 +27,11 @@ namespace Game.UI.View.Components
                 image.gameObject.SetActive(false);
                 countText.transform.parent.gameObject.SetActive(false);
             }
+            else
+            {
+                image.gameObject.SetActive(true);
+                countText.transform.parent.gameObject.SetActive(true);
+            }
         }
     }
 }

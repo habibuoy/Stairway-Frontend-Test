@@ -12,6 +12,8 @@ namespace Game.UI.View.Components
         [SerializeField] private ScrollRect scrollRect;
         
         private readonly List<ListViewItem> listViewItems = new();
+        private readonly List<ListViewItem> sorterIncludedItems = new();
+        private readonly List<ListViewItem> sorterExcludedItems = new();
 
         public bool IsItemSelectable { get; private set; }
         public bool IsItemHoverable { get; private set; }
@@ -74,6 +76,40 @@ namespace Game.UI.View.Components
             }
         }
 
+        public void SortItems(Func<ListViewItem, bool> include,
+            Action<ListViewItem> callbackForIncluded, 
+            Action<ListViewItem> callbackForExcluded)
+        {
+            sorterIncludedItems.Clear();
+            sorterExcludedItems.Clear();
+            
+            foreach (var listItem in listViewItems)
+            {
+                if (include.Invoke(listItem))
+                {
+                    sorterIncludedItems.Add(listItem);
+                }
+                else
+                {
+                    sorterExcludedItems.Add(listItem);
+                }
+            }
+
+            for (int i = 0; i < sorterIncludedItems.Count; i++)
+            {
+                var item = sorterIncludedItems[i];
+                ArrangePositionAndIndex(item, i);
+                callbackForIncluded?.Invoke(item);
+            }
+
+            for (int i = 0; i < sorterExcludedItems.Count; i++)
+            {
+                var item = sorterExcludedItems[i];
+                ArrangePositionAndIndex(item, sorterIncludedItems.Count + i);
+                callbackForExcluded?.Invoke(item);
+            }
+        }
+
         public void Destroy()
         {
             ItemClicked = null;
@@ -85,6 +121,12 @@ namespace Game.UI.View.Components
             {
                 listItem.Clicked -= OnItemClicked;
             }
+        }
+
+        private void ArrangePositionAndIndex(ListViewItem item, int index)
+        {
+            item.SetIndex(index);
+            item.transform.SetSiblingIndex(index);
         }
 
         private void OnItemClicked(Clickable clickable, ClickData clickData)
@@ -107,7 +149,8 @@ namespace Game.UI.View.Components
         {
             foreach (var listItem in listViewItems)
             {
-                if (listItem.Index == itemIndex)
+                if (listItem.Index == itemIndex
+                    && listItem.Interactable)
                 {
                     listItem.SelectItem();
                     return;

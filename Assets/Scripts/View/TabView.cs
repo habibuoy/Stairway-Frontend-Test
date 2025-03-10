@@ -1,3 +1,4 @@
+using System;
 using Game.UI.View;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,13 +13,15 @@ namespace Game.UI
         [SerializeField] private TabCycleButton cyclePreviousButton;
 
         private int currentTabIndex;
+        
+        public event Action<string> TabChanged;
 
         private void Awake()
         {
             if (buttons == null
                 || buttons.Length == 0)
             {
-                Debug.LogError($"{nameof(TabView)}: Tab buttons first are not assigned");
+                Debug.LogError($"{nameof(TabView)}: Tab buttons are not assigned");
                 return;
             }
 
@@ -61,6 +64,7 @@ namespace Game.UI
             {
                 button.Clicked -= OnButtonClicked;
             }
+            TabChanged = null;
         }
 
         private void SetActiveTab(string path)
@@ -70,6 +74,7 @@ namespace Game.UI
                 if (button.Path == path)
                 {
                     button.ToggleActive(true);
+                    TabChanged?.Invoke(path);
                     continue;
                 }
                 button.ToggleActive(false);
@@ -97,15 +102,7 @@ namespace Game.UI
         private void OnButtonClicked(Clickable clickable, ClickData clickData)
         {
             var tabButton = clickable as TabButton;
-            foreach (var button in buttons)
-            {
-                if (button.Path == tabButton.Path)
-                {
-                    button.ToggleActive(true);
-                    continue;
-                }
-                button.ToggleActive(false);
-            }
+            SetActiveTab(tabButton.Path);
         }
     }
 }

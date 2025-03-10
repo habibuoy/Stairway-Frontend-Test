@@ -7,11 +7,15 @@ namespace Game.UI
         [SerializeField] private Color activeColor;
         [SerializeField] private Color inactiveColor;
 
-        public override void ToggleActive(bool active)
+        public override void OnToggleActive()
         {
-            base.ToggleActive(active);
-            buttonImage.color = active ? activeColor : inactiveColor;
-            nameText.gameObject.SetActive(active);
+            buttonImage.color = IsActive ? activeColor : inactiveColor;
+            nameText.gameObject.SetActive(IsActive);
+        }
+
+        public override void OnEndedHover()
+        {
+            buttonImage.color = buttonImage.color = IsActive ? activeColor : inactiveColor;
         }
     }
 }

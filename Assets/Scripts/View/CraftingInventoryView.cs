@@ -2,6 +2,7 @@ using UnityEngine;
 using Game.UI.View.Components;
 using System.Collections.Generic;
 using System;
+using Game.UI.Model.Inventory;
 
 namespace Game.UI.View.Inventory
 {
@@ -11,11 +12,15 @@ namespace Game.UI.View.Inventory
         [SerializeField] private ListView craftableItemlist;
         [SerializeField] private CraftableItemDetailView craftableItemDetailView;
         [SerializeField] private CraftableHoverInfo craftableHoverInfo;
+        [SerializeField] private TabView categoryTabView;
+
+        private ItemCategory currentCategory;
 
         public event Action<ItemData> BackpackItemClicked;
         public event Action<CraftableRecipeItemData> CraftableItemClicked;
         public event Action<CraftableRecipeItemData> CraftableItemBegunHover;
         public event Action<CraftableRecipeItemData> CraftableItemEndedHover;
+        public event Action<ItemCategory> CategoryTabChanged;
 
         public override void Initialize()
         {
@@ -24,6 +29,7 @@ namespace Game.UI.View.Inventory
             craftableItemlist.ItemClicked += OnCraftableItemClicked;
             craftableItemlist.ItemBegunHover += OnCraftableItemBegunHover;
             craftableItemlist.ItemEndedHover += OnCraftableItemEndedHover;
+            categoryTabView.TabChanged += OnCategoryTabChanged;
             craftableHoverInfo.HideInfo();
 
             craftableItemlist.ToggleItemSelectable(true);
@@ -35,6 +41,7 @@ namespace Game.UI.View.Inventory
             craftableItemlist.ItemClicked -= OnCraftableItemClicked;
             craftableItemlist.ItemBegunHover -= OnCraftableItemBegunHover;
             craftableItemlist.ItemEndedHover -= OnCraftableItemEndedHover;
+            categoryTabView.TabChanged -= OnCategoryTabChanged;
         }
 
         public void UpdateBackpackItems(List<IListData> datas)
@@ -87,6 +94,38 @@ namespace Game.UI.View.Inventory
             craftableItemlist.SelectItem(index);
         }
 
+        public void SortListByCategory(ItemCategory itemCategory)
+        {
+            if (currentCategory == itemCategory) return;
+            currentCategory = itemCategory;
+
+            craftableItemlist.SortItems(ListCategorySorter, CategoryIncludedListItemAction, 
+                CategoryExcludedListItemAction);
+            
+            backpackItemlist.SortItems(ListCategorySorter, CategoryIncludedListItemAction, 
+                CategoryExcludedListItemAction);
+        }
+
+        private bool ListCategorySorter(ListViewItem listItem)
+        {
+            if (listItem.Data is not ItemData data
+                || data.IsBlankData()) return false;
+
+            return currentCategory == ItemCategory.All || data.Item.ItemCategory == currentCategory;
+        }
+
+        private void CategoryIncludedListItemAction(ListViewItem listItem)
+        {
+            listItem.SetInteractable(true);
+            listItem.SetBlanked(false);
+        }
+
+        private void CategoryExcludedListItemAction(ListViewItem listItem)
+        {
+            listItem.SetInteractable(false);
+            listItem.SetBlanked();
+        }
+
         private void OnBackpackItemClicked(ListViewItem listItem)
         {
             BackpackItemClicked?.Invoke(listItem.Data as ItemData);
@@ -108,6 +147,14 @@ namespace Game.UI.View.Inventory
         {
             craftableItemlist.SetHovered(listItem.Index, false);
             CraftableItemEndedHover?.Invoke(listItem.Data as CraftableRecipeItemData);
+        }
+
+        private void OnCategoryTabChanged(string path)
+        {
+            if (Enum.TryParse<ItemCategory>(path, out var result))
+            {
+                CategoryTabChanged?.Invoke(result);
+            }
         }
     }
 }
