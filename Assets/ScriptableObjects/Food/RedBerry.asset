@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RedBerry
   m_EditorClassIdentifier: 
   itemName: Red Berry
-  description: A basket of eggs
+  description: 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem '
   image: {fileID: 21300000, guid: 57f9207a376961e43baea0f4a499b89a, type: 3}
-  category: 5
+  category: 6

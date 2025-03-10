@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: WhiteMushroom
   m_EditorClassIdentifier: 
   itemName: White Mushroom
-  description: 
+  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+    Ipsum L
   image: {fileID: 21300000, guid: f5fda04a60acfe84a8d9b339b698ba38, type: 3}
-  category: 2
+  category: 3

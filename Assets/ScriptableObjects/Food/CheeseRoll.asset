@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CheeseRoll
   m_EditorClassIdentifier: 
   itemName: Cheese Roll
-  description: A basket of eggs
+  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum
   image: {fileID: 21300000, guid: c7a7ecf8f3e52284594419c0e53823b6, type: 3}
-  category: 5
+  category: 6

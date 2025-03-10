@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Jar
   m_EditorClassIdentifier: 
   itemName: Jar
-  description: 
+  description: Lo
   image: {fileID: 21300000, guid: 6b2475309564c7c48809f78f2e328144, type: 3}
-  category: 4
+  category: 5

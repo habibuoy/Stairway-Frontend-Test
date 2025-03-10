@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EggBasket
   m_EditorClassIdentifier: 
   itemName: Egg Basket
-  description: A basket of eggs
+  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum L
   image: {fileID: 21300000, guid: 9f7d32856ab13ad4f8362a2890226bcc, type: 3}
-  category: 5
+  category: 6

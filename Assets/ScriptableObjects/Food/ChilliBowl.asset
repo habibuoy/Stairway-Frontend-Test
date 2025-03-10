@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ChilliBowl
   m_EditorClassIdentifier: 
   itemName: Chilli Bowl
-  description: A basket of eggs
+  description: Lorem Ipsum Lorem Ipsu
   image: {fileID: 21300000, guid: 4e91672c0a9122944b236cf1fa7a1e84, type: 3}
-  category: 5
+  category: 6

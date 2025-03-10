@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: BeanSoup
   m_EditorClassIdentifier: 
   itemName: Bean Soup
-  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-    Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsu
   image: {fileID: 21300000, guid: ecb069ab6dcf4e2478951cba62e2dc42, type: 3}
-  category: 5
+  category: 6

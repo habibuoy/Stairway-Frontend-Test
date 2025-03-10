@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BrownMushroom
   m_EditorClassIdentifier: 
   itemName: Brown Mushroom
-  description: 
+  description: Lorem Ipsum Lorem Ipsum L
   image: {fileID: 21300000, guid: 267262da8ceb9da4486f1b39df472a7a, type: 3}
-  category: 2
+  category: 3

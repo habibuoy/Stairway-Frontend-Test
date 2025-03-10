@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d03d729e4ce0fdc40b3da8b643fe7d15, type: 3}
-  m_Name: Fence
+  m_Name: OilLamp
   m_EditorClassIdentifier: 
-  itemName: Fence
-  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-    Ipsum Lor
-  image: {fileID: 21300000, guid: a382b2f39d423db488e7f2c718625b0e, type: 3}
+  itemName: Oil Lamp
+  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum L
+  image: {fileID: 21300000, guid: 436d4f3d224723240b3d522638853155, type: 3}
   category: 5
   recipe:
-  - item: {fileID: 11400000, guid: ead3608e47146684d8827c9824247767, type: 2}
+  - item: {fileID: 11400000, guid: e0f84682ee88e7747835fd6326544743, type: 2}
     count: 2
+  - item: {fileID: 11400000, guid: ead3608e47146684d8827c9824247767, type: 2}
+    count: 4

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SnakeOil
   m_EditorClassIdentifier: 
   itemName: Snake Oil
-  description: 
+  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+    Ipsum Lo
   image: {fileID: 21300000, guid: 6a820574790e50e478c67004a6d34f67, type: 3}
-  category: 3
+  category: 4

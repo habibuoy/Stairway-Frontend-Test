@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bread
   m_EditorClassIdentifier: 
   itemName: Bread
-  description: A basket of eggs
+  description: 'Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+    Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem '
   image: {fileID: 21300000, guid: 843062f738f8c734eb325fee46a1d173, type: 3}
-  category: 5
+  category: 6

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Salad  Bowl  Extra
   description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
-    Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+    Ipsum L
   image: {fileID: 21300000, guid: b5efa13aa60652447a10f9f4caf7ad63, type: 3}
   category: 6
   recipe:

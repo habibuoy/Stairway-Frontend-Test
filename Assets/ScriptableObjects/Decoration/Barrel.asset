@@ -15,4 +15,4 @@ MonoBehaviour:
   itemName: Barrel
   description: 
   image: {fileID: 21300000, guid: 2886f0f13da0f8f469bfb676e63460a1, type: 3}
-  category: 4
+  category: 5

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fork
   m_EditorClassIdentifier: 
   itemName: Fork
-  description: 
+  description: Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem
+    Ipsum Lorem I
   image: {fileID: 21300000, guid: 307a4ac8341107e4ca3c48eef4f40f70, type: 3}
-  category: 4
+  category: 5
