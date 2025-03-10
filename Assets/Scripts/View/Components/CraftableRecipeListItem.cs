@@ -1,3 +1,4 @@
+using Game.Extensions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,8 +7,6 @@ namespace Game.UI.View.Components
 {
     public class CraftableRecipeListItem : ListViewItem
     {
-        private static Color sufficeColor = Color.black;
-        private static Color insufficientColor = Color.red;
 
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI nameText;
@@ -28,10 +27,10 @@ namespace Game.UI.View.Components
             string style = isSufficient ? "<b>" : "";
             string styleEnd = isSufficient ? "</b>" : "";
             
-            string color = ColorUtility.ToHtmlStringRGBA(isSufficient
-                ? sufficeColor 
-                : insufficientColor);
-            countText.text = $"<color=#{color}>{style}{data.AvailableAmount}</color>{styleEnd} / {data.ItemRequirement.count}";
+            string color = isSufficient
+                ? ColorExtensions.GetSufficientCraftStringColor()
+                : ColorExtensions.GetInsufficientCraftStringColor();
+            countText.text = $"<color={color}>{style}{data.AvailableAmount}</color>{styleEnd} / {data.ItemRequirement.count}";
         }
     }
 }

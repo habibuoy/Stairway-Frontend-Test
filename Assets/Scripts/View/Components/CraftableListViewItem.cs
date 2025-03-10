@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ namespace Game.UI.View.Components
             
             itemImage.sprite = data.Item.Image;
             highlightImage.gameObject.SetActive(false);
-            craftableImage.gameObject.SetActive(false);
+            craftableImage.gameObject.SetActive(data.IsCraftable());
             pinIconImage.gameObject.SetActive(false);
         }
 

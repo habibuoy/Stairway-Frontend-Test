@@ -14,8 +14,11 @@ namespace Game.UI.View.Components
         private readonly List<ListViewItem> listViewItems = new();
 
         public bool IsItemSelectable { get; private set; }
+        public bool IsItemHoverable { get; private set; }
         public RectTransform Content => scrollRect.content;
         public event Action<ListViewItem> ItemClicked;
+        public event Action<ListViewItem> ItemBegunHover;
+        public event Action<ListViewItem> ItemEndedHover;
 
         public void UpdateList(List<IListData> listData)
         {
@@ -45,6 +48,8 @@ namespace Game.UI.View.Components
                 }
 
                 listItem.Clicked += OnItemClicked;
+                listItem.HoverBegun += OnItemBegunHover;
+                listItem.HoverEnded += OnItemEndedHover;
                 listItem.SetData(data, i);
                 listViewItems.Add(listItem);
             }
@@ -86,6 +91,16 @@ namespace Game.UI.View.Components
             ItemClicked?.Invoke(clickable as ListViewItem);
         }
 
+        private void OnItemBegunHover(ListViewItem listViewItem)
+        {
+            ItemBegunHover?.Invoke(listViewItem);
+        }
+
+        private void OnItemEndedHover(ListViewItem listViewItem)
+        {
+            ItemEndedHover?.Invoke(listViewItem);
+        }
+
         public void SelectItem(int itemIndex)
         {
             foreach (var listItem in listViewItems)
@@ -106,9 +121,22 @@ namespace Game.UI.View.Components
             }
         }
 
+        public void SetHovered(int itemIndex, bool hovered = true)
+        {
+            foreach (var listItem in listViewItems)
+            {
+                listItem.SetHovered(listItem.Index == itemIndex && hovered);
+            }
+        }
+
         public void ToggleItemSelectable(bool selectable)
         {
             IsItemSelectable = selectable;
+        }
+
+        public ListViewItem GetListViewItem(Predicate<ListViewItem> predicate)
+        {
+            return listViewItems.Find(predicate);
         }
     }
 }

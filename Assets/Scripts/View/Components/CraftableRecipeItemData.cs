@@ -10,13 +10,16 @@ namespace Game.UI.View.Components
     {
         public List<CraftableRecipeAvailability> AvailabilityData { get; private set; }
 
+        private int craftAbilityCount;
+
         public CraftableRecipeItemData(Item item, 
             List<CraftableRecipeAvailability> availability) : base(item)
         {
             AvailabilityData = availability;
+            UpdateCraftabilityCount();
         }
 
-        public int GetCraftabilityCount()
+        private void UpdateCraftabilityCount()
         {
             int[] availabilities = new int[AvailabilityData.Count];
             for (int i = 0; i < availabilities.Length; i++)
@@ -26,14 +29,24 @@ namespace Game.UI.View.Components
                     || data.ItemRequirement == null
                     || data.ItemRequirement.item == null)
                 {
-                    // immediately return 0 if there is error
-                    return 0;
+                    // immediately return if there is error
+                    return;
                 }
 
                 availabilities[i] = data.GetAvailabilityCount();
             }
 
-            return availabilities.Min();
+            craftAbilityCount = availabilities.Min();
+        }
+
+        public int GetCraftabilityCount()
+        {
+            return craftAbilityCount;
+        }
+
+        public bool IsCraftable()
+        {
+            return GetCraftabilityCount() > 0;
         }
     }
 
@@ -42,15 +55,23 @@ namespace Game.UI.View.Components
         public RecipeItem ItemRequirement { get; private set; }
         public int AvailableAmount { get; private set; }
 
+        private int availabilityCount;
+
         public CraftableRecipeAvailability(RecipeItem item, int amount)
         {
             ItemRequirement = item;
             AvailableAmount = amount;
+            UpdateAvailabilityCount();
+        }
+
+        private void UpdateAvailabilityCount()
+        {
+            availabilityCount = Mathf.FloorToInt(AvailableAmount / ItemRequirement.count);
         }
 
         public int GetAvailabilityCount()
         {
-            return Mathf.FloorToInt(AvailableAmount / ItemRequirement.count);
+            return availabilityCount;
         }
     }
 }

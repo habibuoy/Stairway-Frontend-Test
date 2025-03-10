@@ -35,6 +35,8 @@ namespace Game.UI.Presenter.Inventory
             }).ToList<IListData>());
             view.BackpackItemClicked += OnBackpackItemClicked;
             view.CraftableItemClicked += OnCraftableItemClicked;
+            view.CraftableItemBegunHover += OnCraftableBegunHovered;
+            view.CraftableItemEndedHover += OnCraftableEndedHovered;
 
             view.SelectCraftableItem(0);
         }
@@ -43,6 +45,8 @@ namespace Game.UI.Presenter.Inventory
         {
             view.BackpackItemClicked -= OnBackpackItemClicked;
             view.CraftableItemClicked -= OnCraftableItemClicked;
+            view.CraftableItemBegunHover -= OnCraftableBegunHovered;
+            view.CraftableItemEndedHover -= OnCraftableEndedHovered;
         }
 
         private void OnBackpackItemClicked(ItemData itemData)
@@ -52,7 +56,18 @@ namespace Game.UI.Presenter.Inventory
 
         private void OnCraftableItemClicked(CraftableRecipeItemData itemData)
         {
+            view.HideCraftableHoverInfo();
             view.UpdateCraftableDetail(itemData);
+        }
+
+        private void OnCraftableBegunHovered(CraftableRecipeItemData itemData)
+        {
+            view.ShowCraftableHoverInfo(itemData);
+        }
+
+        private void OnCraftableEndedHovered(CraftableRecipeItemData itemData)
+        {
+            view.HideCraftableHoverInfo();
         }
     }
 }

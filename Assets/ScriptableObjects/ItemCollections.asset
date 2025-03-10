@@ -18,3 +18,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6fcb35647c06a3d40b8b866a25378f80, type: 2}
   craftables:
   - {fileID: 11400000, guid: c9d92d08f9bb182458fc54a52aa22658, type: 2}
+  - {fileID: 11400000, guid: bc0c5badcd0d5a04b9def04aefbb18da, type: 2}

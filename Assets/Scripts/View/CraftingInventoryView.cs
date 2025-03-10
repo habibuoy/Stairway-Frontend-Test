@@ -1,7 +1,6 @@
 using UnityEngine;
 using Game.UI.View.Components;
 using System.Collections.Generic;
-using Game.UI.Model.Inventory;
 using System;
 
 namespace Game.UI.View.Inventory
@@ -11,15 +10,21 @@ namespace Game.UI.View.Inventory
         [SerializeField] private ListView backpackItemlist;
         [SerializeField] private ListView craftableItemlist;
         [SerializeField] private CraftableItemDetailView craftableItemDetailView;
+        [SerializeField] private CraftableHoverInfo craftableHoverInfo;
 
         public event Action<ItemData> BackpackItemClicked;
         public event Action<CraftableRecipeItemData> CraftableItemClicked;
+        public event Action<CraftableRecipeItemData> CraftableItemBegunHover;
+        public event Action<CraftableRecipeItemData> CraftableItemEndedHover;
 
         public override void Initialize()
         {
             base.Initialize();
             backpackItemlist.ItemClicked += OnBackpackItemClicked;
             craftableItemlist.ItemClicked += OnCraftableItemClicked;
+            craftableItemlist.ItemBegunHover += OnCraftableItemBegunHover;
+            craftableItemlist.ItemEndedHover += OnCraftableItemEndedHover;
+            craftableHoverInfo.HideInfo();
 
             craftableItemlist.ToggleItemSelectable(true);
         }
@@ -28,6 +33,8 @@ namespace Game.UI.View.Inventory
         {
             backpackItemlist.ItemClicked -= OnBackpackItemClicked;
             craftableItemlist.ItemClicked -= OnCraftableItemClicked;
+            craftableItemlist.ItemBegunHover -= OnCraftableItemBegunHover;
+            craftableItemlist.ItemEndedHover -= OnCraftableItemEndedHover;
         }
 
         public void UpdateBackpackItems(List<IListData> datas)
@@ -45,6 +52,22 @@ namespace Game.UI.View.Inventory
             craftableItemDetailView.SetData(craftableRecipeItemData);
         }
 
+        public void ShowCraftableHoverInfo(CraftableRecipeItemData craftableRecipeItemData)
+        {
+            var listItem = craftableItemlist.GetListViewItem(li => li.Data == craftableRecipeItemData);
+            if (listItem == null)
+            {
+                return;
+            }
+
+            craftableHoverInfo.ShowInfo(craftableRecipeItemData, listItem.RectTransform.anchoredPosition);
+        }
+
+        public void HideCraftableHoverInfo()
+        {
+            craftableHoverInfo.HideInfo();
+        }
+
         public void SelectCraftableItem(int index)
         {
             craftableItemlist.SelectItem(index);
@@ -59,6 +82,18 @@ namespace Game.UI.View.Inventory
         {
             craftableItemlist.SetSelected(listItem.Index);
             CraftableItemClicked?.Invoke(listItem.Data as CraftableRecipeItemData);
+        }
+
+        private void OnCraftableItemBegunHover(ListViewItem listItem)
+        {
+            craftableItemlist.SetHovered(listItem.Index);
+            CraftableItemBegunHover?.Invoke(listItem.Data as CraftableRecipeItemData);
+        }
+
+        private void OnCraftableItemEndedHover(ListViewItem listItem)
+        {
+            craftableItemlist.SetHovered(listItem.Index, false);
+            CraftableItemEndedHover?.Invoke(listItem.Data as CraftableRecipeItemData);
         }
     }
 }
