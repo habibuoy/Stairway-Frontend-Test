@@ -3039,6 +3039,7 @@ MonoBehaviour:
   craftableHoverInfo: {fileID: 7596720340042763852}
   categoryTabView: {fileID: 6799031165878236282}
   pinCraftableKeyCode: 116
+  craftMoreKeyHoldDuration: 1
 --- !u!1 &6015813093463030338
 GameObject:
   m_ObjectHideFlags: 0

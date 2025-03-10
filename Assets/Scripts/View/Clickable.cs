@@ -4,10 +4,14 @@ using UnityEngine.EventSystems;
 
 namespace Game.UI.View
 {
-    public class Clickable : MonoBehaviour, IPointerClickHandler
+    public class Clickable : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
     {
-        public bool Interactable { get; private set; } = true;
+        public bool IsInteractable { get; private set; } = true;
+        public bool IsClicking { get; private set; }
+
         public event Action<Clickable, ClickData> Clicked;
+        public event Action<Clickable, ClickData> ClickBegun;
+        public event Action<Clickable, ClickData> ClickEnded;
 
         private void Awake()
         {
@@ -22,17 +26,19 @@ namespace Game.UI.View
 
         public void SetInteractable(bool interactable = true)
         {
-            Interactable = interactable;
+            IsInteractable = interactable;
         }
 
         protected virtual void OnAwake() { }
         protected virtual void OnDestroyed() { }
 
         protected virtual void OnClicked(ClickData clickData) { }
+        protected virtual void OnClickBegun(ClickData clickData) { }
+        protected virtual void OnClickEnded(ClickData clickData) { }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            if (!Interactable) return;
+            if (!IsInteractable) return;
             switch (eventData.button)
             {
                 default:
@@ -45,6 +51,54 @@ namespace Game.UI.View
                     Click(ClickData.Middle());
                     break;
             }
+        }
+
+        void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+        {
+            if (!IsInteractable) return;
+            switch (eventData.button)
+            {
+                default:
+                    BeginClick(ClickData.Left());
+                    break;
+                case PointerEventData.InputButton.Right:
+                    BeginClick(ClickData.Right());
+                    break;
+                case PointerEventData.InputButton.Middle:
+                    BeginClick(ClickData.Middle());
+                    break;
+            }
+        }
+
+        void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
+        {
+            if (!IsInteractable || !IsClicking) return;
+            switch (eventData.button)
+            {
+                default:
+                    EndClick(ClickData.Left());
+                    break;
+                case PointerEventData.InputButton.Right:
+                    EndClick(ClickData.Right());
+                    break;
+                case PointerEventData.InputButton.Middle:
+                    EndClick(ClickData.Middle());
+                    break;
+            }
+        }
+
+        protected void BeginClick(ClickData clickData)
+        {
+            IsClicking = true;
+            OnClickBegun(clickData);
+            ClickBegun?.Invoke(this, clickData);
+        }
+
+        protected void EndClick(ClickData clickData)
+        {
+            IsClicking = false;
+            OnClickEnded(clickData);
+            ClickEnded?.Invoke(this, clickData);
         }
 
         protected void Click(ClickData clickData)

@@ -14,9 +14,13 @@ namespace Game.UI.View.Inventory
         [SerializeField] private CraftableHoverInfo craftableHoverInfo;
         [SerializeField] private TabView categoryTabView;
         [SerializeField] private KeyCode pinCraftableKeyCode;
+        [SerializeField] private float craftMoreKeyHoldDuration = 1f;
 
         private ItemCategory currentCategory;
         private ListViewItem selectedCraftableItem;
+
+        private bool isHolding;
+        private float holdProgress;
 
         public event Action<ItemData> BackpackItemClicked;
         public event Action<CraftableRecipeItemData, bool> CraftableItemClicked;
@@ -24,6 +28,7 @@ namespace Game.UI.View.Inventory
         public event Action<CraftableRecipeItemData> CraftableItemEndedHover;
         public event Action<ItemCategory> CategoryTabChanged;
         public event Action<CraftableRecipeItemData> CraftablePinInputted; 
+        public event Action<CraftableRecipeItemData> CraftableItemHeld;
 
         public override void Initialize()
         {
@@ -32,6 +37,8 @@ namespace Game.UI.View.Inventory
             craftableItemlist.ItemClicked += OnCraftableItemClicked;
             craftableItemlist.ItemBegunHover += OnCraftableItemBegunHover;
             craftableItemlist.ItemEndedHover += OnCraftableItemEndedHover;
+            craftableItemlist.ItemBegunClick += OnCraftableItemBegunClick;
+            craftableItemlist.ItemEndedClick += OnCraftableItemEndedClick;
             categoryTabView.TabChanged += OnCategoryTabChanged;
             craftableHoverInfo.HideInfo();
 
@@ -44,6 +51,8 @@ namespace Game.UI.View.Inventory
             craftableItemlist.ItemClicked -= OnCraftableItemClicked;
             craftableItemlist.ItemBegunHover -= OnCraftableItemBegunHover;
             craftableItemlist.ItemEndedHover -= OnCraftableItemEndedHover;
+            craftableItemlist.ItemBegunClick -= OnCraftableItemBegunClick;
+            craftableItemlist.ItemEndedClick -= OnCraftableItemEndedClick;
             categoryTabView.TabChanged -= OnCategoryTabChanged;
         }
 
@@ -54,6 +63,17 @@ namespace Game.UI.View.Inventory
                 var selected = craftableItemlist.GetListViewItem(item => item.IsSelected);
                 if (selected == null) return;
                 CraftablePinInputted?.Invoke(selected.Data as CraftableRecipeItemData);
+            }
+
+            if (isHolding
+                && selectedCraftableItem != null)
+            {
+                holdProgress -= Time.deltaTime;
+                if (holdProgress <= 0f)
+                {
+                    ResetHolding();
+                    CraftableItemHeld?.Invoke(selectedCraftableItem.Data as CraftableRecipeItemData);
+                }
             }
         }
 
@@ -107,6 +127,14 @@ namespace Game.UI.View.Inventory
             craftableItemlist.SelectItem(index);
         }
 
+        public void ReselectCraftableItem()
+        {
+            if (selectedCraftableItem != null)
+            {
+                craftableItemlist.SelectItem(selectedCraftableItem.Index);
+            }
+        }
+
         public void SortListByCategory(ItemCategory itemCategory)
         {
             if (currentCategory == itemCategory) return;
@@ -125,6 +153,13 @@ namespace Game.UI.View.Inventory
                 || selectedCraftableItem.Data != craftableRecipeItemData) return;
 
             craftableItemlist.SetPinned(selectedCraftableItem.Index, !selectedCraftableItem.IsPinned);
+        }
+
+        private void ResetHolding()
+        {
+            Debug.Log("Reset holding");
+            isHolding = false;
+            holdProgress = craftMoreKeyHoldDuration;
         }
 
         private bool ListCategorySorter(ListViewItem listItem)
@@ -168,8 +203,38 @@ namespace Game.UI.View.Inventory
 
         private void OnCraftableItemEndedHover(ListViewItem listItem)
         {
+            var data = listItem.Data as CraftableRecipeItemData;
             craftableItemlist.SetHovered(listItem.Index, false);
-            CraftableItemEndedHover?.Invoke(listItem.Data as CraftableRecipeItemData);
+            CraftableItemEndedHover?.Invoke(data);
+            if (isHolding 
+                && selectedCraftableItem != null 
+                && selectedCraftableItem.Data == data)
+            {
+                ResetHolding();
+            }
+        }
+
+        private void OnCraftableItemBegunClick(ListViewItem listItem)
+        {
+            var data = listItem.Data as CraftableRecipeItemData;
+            if (selectedCraftableItem != null
+                && selectedCraftableItem.Data == data)
+            {
+                ResetHolding();
+                isHolding = true;
+                Debug.Log($"begin holding, isholding: {isHolding}");
+            }
+        }
+
+        private void OnCraftableItemEndedClick(ListViewItem listItem)
+        {
+            var data = listItem.Data as CraftableRecipeItemData;
+            if (isHolding 
+                && selectedCraftableItem != null 
+                && selectedCraftableItem.Data == data)
+            {
+                ResetHolding();
+            }
         }
 
         private void OnCategoryTabChanged(string path)

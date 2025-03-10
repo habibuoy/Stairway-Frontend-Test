@@ -24,6 +24,8 @@ namespace Game.UI.View.Components
         public event Action<ListViewItem> ItemClicked;
         public event Action<ListViewItem> ItemBegunHover;
         public event Action<ListViewItem> ItemEndedHover;
+        public event Action<ListViewItem> ItemBegunClick;
+        public event Action<ListViewItem> ItemEndedClick;
 
         public void UpdateList(List<IListData> listData, Action<ListViewItem> customConfiguration = null)
         {
@@ -55,6 +57,8 @@ namespace Game.UI.View.Components
                 listItem.Clicked += OnItemClicked;
                 listItem.HoverBegun += OnItemBegunHover;
                 listItem.HoverEnded += OnItemEndedHover;
+                listItem.ClickBegun += OnItemBegunClick;
+                listItem.ClickEnded += OnItemEndedClick;
                 listItem.SetInteractable();
                 listItem.SetData(data, i);
                 customConfiguration?.Invoke(listItem);
@@ -105,6 +109,10 @@ namespace Game.UI.View.Components
             foreach (var listItem in listViewItems)
             {
                 listItem.Clicked -= OnItemClicked;
+                listItem.HoverBegun -= OnItemBegunHover;
+                listItem.HoverEnded -= OnItemEndedHover;
+                listItem.ClickBegun -= OnItemBegunClick;
+                listItem.ClickEnded -= OnItemEndedClick;
             }
         }
 
@@ -124,12 +132,22 @@ namespace Game.UI.View.Components
             ItemEndedHover?.Invoke(listViewItem);
         }
 
+        private void OnItemBegunClick(Clickable clickable, ClickData clickData)
+        {
+            ItemBegunClick?.Invoke(clickable as ListViewItem);
+        }
+
+        private void OnItemEndedClick(Clickable clickable, ClickData clickData)
+        {
+            ItemEndedClick?.Invoke(clickable as ListViewItem);
+        }
+
         public void SelectItem(int itemIndex)
         {
             foreach (var listItem in listViewItems)
             {
                 if (listItem.Index == itemIndex
-                    && listItem.Interactable)
+                    && listItem.IsInteractable)
                 {
                     listItem.SelectItem();
                     return;

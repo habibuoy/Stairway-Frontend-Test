@@ -16,7 +16,7 @@ namespace Game.UI.Inventory
         [SerializeField] private ItemCollectionsSO itemCollections;
         [SerializeField] private GeneralInventoryView generalInventoryView;
         [SerializeField] private CraftingInventoryView craftingInventoryView;
-        [SerializeField] private int generateitemCount = 50;
+        [SerializeField] private int generateItemCount = 50;
         [SerializeField] private int generateCraftableCount = 25;
 
         private const int MaxHealth = 420;
@@ -59,10 +59,10 @@ namespace Game.UI.Inventory
             int itemCount = itemCollections.Items.Count;
             int craftableCount = itemCollections.Craftables.Count;
 
-            generateitemCount = itemCount >= generateitemCount 
-                ? itemCount : generateitemCount;
+            generateItemCount = itemCount >= generateItemCount 
+                ? itemCount : generateItemCount;
 
-            for (int i = 0; i < generateitemCount; i++)
+            for (int i = 0; i < generateItemCount; i++)
             {
                 Item item = null;
 

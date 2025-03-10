@@ -32,7 +32,7 @@ namespace Game.UI.View.Components
         protected override void OnSetBlanked()
         {
             base.OnSetBlanked();
-
+            var data = Data as CraftableRecipeItemData;
             if (IsBlanked)
             {
                 itemImage.gameObject.SetActive(false);
@@ -44,7 +44,7 @@ namespace Game.UI.View.Components
             else
             {
                 itemImage.gameObject.SetActive(true);
-                craftableImage.gameObject.SetActive(true);
+                craftableImage.gameObject.SetActive(data.IsCraftable());
                 pinIconImage.gameObject.SetActive(IsPinned);
                 highlightImage.gameObject.SetActive(IsSelected);
                 placeholderImage.gameObject.SetActive(false);

@@ -75,13 +75,13 @@ namespace Game.UI.View.Components
 
         void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
         {
-            if (!Interactable) return;
+            if (!IsInteractable) return;
             HoverBegun?.Invoke(this);
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
         {
-            if (!Interactable) return;
+            if (!IsInteractable) return;
             HoverEnded?.Invoke(this);
         }
 

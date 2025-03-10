@@ -26,6 +26,7 @@ namespace Game.UI.Presenter.Inventory
             view.CraftableItemEndedHover += OnCraftableEndedHovered;
             view.CategoryTabChanged += OnCategoryTabChanged;
             view.CraftablePinInputted += OnCraftableItemInputtedPin;
+            view.CraftableItemHeld += OnCraftableItemHeld;
 
             view.SelectCraftableItem(0);
         }
@@ -40,21 +41,22 @@ namespace Game.UI.Presenter.Inventory
             view.CraftableItemEndedHover -= OnCraftableEndedHovered;
             view.CategoryTabChanged -= OnCategoryTabChanged;
             view.CraftablePinInputted -= OnCraftableItemInputtedPin;
+            view.CraftableItemHeld -= OnCraftableItemHeld;
         }
 
         private void OnModelItemChanged(Item item)
         {
-            Debug.Log($"Model items changed: {item.ItemName} ({item.Count})");
+            
         }
 
         private void OnModelItemsChanged()
         {
-            Debug.Log($"Current items count: {model.AllItems.Count()}");
+            
         }
 
         private void OnBackpackItemClicked(ItemData itemData)
         {
-            Debug.Log($"Item {itemData.Item.ItemName} category {itemData.Item.ItemCategory} count {itemData.Item.Count} clicked");
+            
         }
 
         private void OnCraftableItemClicked(CraftableRecipeItemData itemData, bool currentlySelected)
@@ -70,12 +72,12 @@ namespace Game.UI.Presenter.Inventory
             }
         }
         
-        private void CraftItem(CraftableRecipeItemData itemData, bool once = true)
+        private void CraftItem(CraftableRecipeItemData itemData, bool more = false)
         {
             int craftabilityCount = itemData.GetCraftabilityCount();
             if (craftabilityCount <= 0) return;
 
-            var craftableItem = new Item(itemData.Item.ItemSO, once ? 1 : craftabilityCount);
+            var craftableItem = new Item(itemData.Item.ItemSO, !more ? 1 : craftabilityCount);
             foreach (var availability in itemData.AvailabilityData)
             {
                 var recipeItem = model.AllItems.FirstOrDefault(item => 
@@ -86,7 +88,7 @@ namespace Game.UI.Presenter.Inventory
                     continue;
                 }
 
-                int craftRemainder = once ? availability.AvailableAmount - availability.ItemRecipe.count 
+                int craftRemainder = !more ? availability.AvailableAmount - availability.ItemRecipe.count 
                     : availability.AvailableAmount % availability.ItemRecipe.count;
 
                 if (craftRemainder == 0)
@@ -111,6 +113,23 @@ namespace Game.UI.Presenter.Inventory
         private void OnCraftableEndedHovered(CraftableRecipeItemData itemData)
         {
             view.HideCraftableHoverInfo();
+        }
+
+        private void OnCraftableItemHeld(CraftableRecipeItemData itemData)
+        {
+            CraftItem(itemData, true);
+        }
+
+        private void OnCategoryTabChanged(ItemCategory category)
+        {
+            view.SortListByCategory(category);
+            view.HideCraftableHoverInfo();
+            view.SelectCraftableItem(0);
+        }
+
+        private void OnCraftableItemInputtedPin(CraftableRecipeItemData craftableRecipeItemData)
+        {
+            view.PinCraftableItem(craftableRecipeItemData);
         }
 
         private List<IListData> GetBasicItemDatas(Func<Item, bool> match = null)
@@ -160,18 +179,6 @@ namespace Game.UI.Presenter.Inventory
             datas.Sort();
 
             return datas.ToList<IListData>();
-        }
-
-        private void OnCategoryTabChanged(ItemCategory category)
-        {
-            view.SortListByCategory(category);
-            view.HideCraftableHoverInfo();
-            view.SelectCraftableItem(0);
-        }
-
-        private void OnCraftableItemInputtedPin(CraftableRecipeItemData craftableRecipeItemData)
-        {
-            view.PinCraftableItem(craftableRecipeItemData);
         }
     }
 }
