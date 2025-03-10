@@ -39,12 +39,26 @@ namespace Game.UI.View.Inventory
 
         public void UpdateBackpackItems(List<IListData> datas)
         {
-            backpackItemlist.UpdateList(datas);
+            backpackItemlist.UpdateList(datas, item => 
+            {
+                if (item.Data.IsBlankData())
+                {
+                    item.SetInteractable(false);
+                    item.SetBlanked(true);
+                }
+            });
         }
 
         public void UpdateCraftableItems(List<IListData> datas)
         {
-            craftableItemlist.UpdateList(datas);
+            craftableItemlist.UpdateList(datas, item => 
+            {
+                if (item.Data.IsBlankData())
+                {
+                    item.SetInteractable(false);
+                    item.SetBlanked(true);
+                }
+            });
         }
 
         public void UpdateCraftableDetail(CraftableRecipeItemData craftableRecipeItemData)

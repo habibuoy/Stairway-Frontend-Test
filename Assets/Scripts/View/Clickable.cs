@@ -6,6 +6,7 @@ namespace Game.UI.View
 {
     public class Clickable : MonoBehaviour, IPointerClickHandler
     {
+        public bool Interactable { get; private set; } = true;
         public event Action<Clickable, ClickData> Clicked;
 
         private void Awake()
@@ -19,6 +20,11 @@ namespace Game.UI.View
             OnDestroyed();
         }
 
+        public void SetInteractable(bool interactable = true)
+        {
+            Interactable = interactable;
+        }
+
         protected virtual void OnAwake() { }
         protected virtual void OnDestroyed() { }
 
@@ -26,6 +32,7 @@ namespace Game.UI.View
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
+            if (!Interactable) return;
             switch (eventData.button)
             {
                 default:

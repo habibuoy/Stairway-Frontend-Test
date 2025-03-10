@@ -20,7 +20,7 @@ namespace Game.UI.View.Components
         public event Action<ListViewItem> ItemBegunHover;
         public event Action<ListViewItem> ItemEndedHover;
 
-        public void UpdateList(List<IListData> listData)
+        public void UpdateList(List<IListData> listData, Action<ListViewItem> customConfiguration = null)
         {
             int dataCount = listData.Count;
 
@@ -50,7 +50,9 @@ namespace Game.UI.View.Components
                 listItem.Clicked += OnItemClicked;
                 listItem.HoverBegun += OnItemBegunHover;
                 listItem.HoverEnded += OnItemEndedHover;
+                listItem.SetInteractable();
                 listItem.SetData(data, i);
+                customConfiguration?.Invoke(listItem);
                 listViewItems.Add(listItem);
             }
         }

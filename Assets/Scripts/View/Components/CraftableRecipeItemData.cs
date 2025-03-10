@@ -21,6 +21,11 @@ namespace Game.UI.View.Components
 
         private void UpdateCraftabilityCount()
         {
+            if (AvailabilityData == null)
+            {
+                craftAbilityCount = 0;
+                return;
+            } 
             int[] availabilities = new int[AvailabilityData.Count];
             for (int i = 0; i < availabilities.Length; i++)
             {
@@ -62,6 +67,11 @@ namespace Game.UI.View.Components
             ItemRequirement = item;
             AvailableAmount = amount;
             UpdateAvailabilityCount();
+        }
+
+        public bool IsBlankData()
+        {
+            return ItemRequirement.item == null;
         }
 
         private void UpdateAvailabilityCount()

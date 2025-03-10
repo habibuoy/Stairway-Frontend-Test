@@ -18,5 +18,15 @@ namespace Game.UI.Model.Inventory
             ItemSO = itemSO;
             Count = count;
         }
+
+        public bool IsBlank()
+        {
+            return ItemSO == null && Count == -1;
+        }
+
+        public static Item Blank()
+        {
+            return new Item(null, -1);
+        }
     }
 }

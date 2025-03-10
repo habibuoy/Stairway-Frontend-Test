@@ -20,6 +20,7 @@ namespace Game.UI.View.Components
         public void SetData(CraftableRecipeItemData craftableRecipeItemData)
         {
             var item = craftableRecipeItemData.Item;
+            if (item.IsBlank()) return;
             var availabilities = craftableRecipeItemData.AvailabilityData;
             
             if (item.ItemSO is not CraftableItemSO craftableItem) return;

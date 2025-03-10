@@ -59,17 +59,42 @@ namespace Game.UI.Inventory
             int itemCount = itemCollections.Items.Count;
             int craftableCount = itemCollections.Craftables.Count;
 
+            generateitemCount = itemCount >= generateitemCount 
+                ? itemCount : generateitemCount;
+
             for (int i = 0; i < generateitemCount; i++)
             {
-                var so = itemCollections.Items.ElementAt(Random.Range(0, itemCount));
-                var item = new Item(so, Random.Range(1, 10));
+                Item item = null;
+
+                if (i < itemCount)
+                {
+                    var so = itemCollections.Items.ElementAt(i);
+                    item = new Item(so, Random.Range(1, 5));
+                }
+                else
+                {
+                    item = Item.Blank();
+                }
                 items.Add(item);
             }
 
+            generateCraftableCount = craftableCount >= generateCraftableCount 
+                ? craftableCount : generateCraftableCount;
+
             for (int i = 0; i < generateCraftableCount; i++)
             {
-                var so = itemCollections.Craftables.ElementAt(Random.Range(0, craftableCount));
-                var item = new Item(so, Random.Range(1, 10));
+                Item item = null;
+
+                if (i < craftableCount)
+                {
+                    var so = itemCollections.Craftables.ElementAt(i);
+                    item = new Item(so, Random.Range(1, 5));
+                }
+                else
+                {
+                    item = Item.Blank();
+                }
+
                 items.Add(item);
             }
 

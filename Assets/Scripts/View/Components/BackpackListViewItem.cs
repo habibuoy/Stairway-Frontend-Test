@@ -15,6 +15,18 @@ namespace Game.UI.View.Components
 
             image.sprite = data.Item.Image;
             countText.text = data.Item.Count.ToString();
+            image.gameObject.SetActive(true);
+            countText.transform.parent.gameObject.SetActive(true);
+        }
+
+        protected override void OnSetBlanked()
+        {
+            base.OnSetBlanked();
+            if (IsBlanked)
+            {
+                image.gameObject.SetActive(false);
+                countText.transform.parent.gameObject.SetActive(false);
+            }
         }
     }
 }

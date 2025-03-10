@@ -7,8 +7,8 @@ namespace Game.UI.Model.Inventory
 {
     public class CraftingInventoryModel : BaseInventoryModel
     {
-        public IEnumerable<Item> Craftables => sharedData.OwnedItems.Where(i => i.ItemSO is CraftableItemSO);
-        public IEnumerable<Item> Basics => sharedData.OwnedItems.Where(i => i.ItemSO is not CraftableItemSO);
+        public IEnumerable<Item> Craftables => sharedData.OwnedItems.Where(i => i.IsBlank() || i.ItemSO is CraftableItemSO);
+        public IEnumerable<Item> Basics => sharedData.OwnedItems.Where(i => i.IsBlank() || i.ItemSO is not CraftableItemSO);
         public IEnumerable<Item> AllItems => sharedData.OwnedItems;
 
         public CraftingInventoryModel(ISharedInventoryData sharedInventoryData) 
