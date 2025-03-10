@@ -134,7 +134,7 @@ namespace Game.UI.Presenter.Inventory
 
         private List<IListData> GetBasicItemDatas(Func<Item, bool> match = null)
         {
-            var basics = model.Basics;
+            var basics = model.AllItems;
             if (match != null)
             {
                 basics = basics.Where(match);

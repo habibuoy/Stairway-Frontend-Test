@@ -6,6 +6,7 @@ namespace Game.UI.View.Components
 {
     public class BackpackListViewItem : ListViewItem
     {
+        [SerializeField] private Image backgroundImage;
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
 
@@ -15,6 +16,7 @@ namespace Game.UI.View.Components
 
             image.sprite = data.Item.Image;
             countText.text = data.Item.Count.ToString();
+            UpdateBackgroundColor();
             image.gameObject.SetActive(true);
             countText.transform.parent.gameObject.SetActive(true);
         }
@@ -32,6 +34,14 @@ namespace Game.UI.View.Components
                 image.gameObject.SetActive(true);
                 countText.transform.parent.gameObject.SetActive(true);
             }
+            UpdateBackgroundColor();
+        }
+
+        private void UpdateBackgroundColor()
+        {
+            var color = backgroundImage.color;
+            color.a = IsBlanked ? 0.25f : 1f;
+            backgroundImage.color = color;
         }
     }
 }
