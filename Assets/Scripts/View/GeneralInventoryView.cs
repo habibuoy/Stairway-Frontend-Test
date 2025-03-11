@@ -56,7 +56,7 @@ namespace Game.UI.View.Inventory
         {
             string season = dateTime.AsSeason().AsString();
             string year = (dateTime.Year - firstPlayDateTime.Year + 1).ToOrdinal();
-            timeText.text = $"{year} Year\n{season} {dateTime.Day}";
+            timeText.text = $"<color={ColorExtensions.FadedGreyColorString}>{year} Year</color>\n{season} {dateTime.Day}";
         }
 
         public void UpdateGold(int gold)
@@ -66,13 +66,13 @@ namespace Game.UI.View.Inventory
         
         public void UpdateHealth(int health, int maxHealth)
         {
-            healthText.text = $"{health} / {maxHealth}";
+            healthText.text = $"{health} / <color={ColorExtensions.FadedGreyColorString}>{maxHealth}</color>";
             healthBar.fillAmount = (float) health / maxHealth;
         }
 
         public void UpdateEnergy(int energy, int maxEnergy)
         {
-            energyText.text = $"{energy} / {maxEnergy}";
+            energyText.text = $"{energy} / <color={ColorExtensions.FadedGreyColorString}>{maxEnergy}</color>";
             energyBar.fillAmount = (float) energy / maxEnergy;
         }
     }
