@@ -1,4 +1,6 @@
+using System.Threading.Tasks;
 using Game.UI.Model.Inventory;
+using Game.UI.View.Components.Transitions;
 using Game.UI.View.Inventory;
 
 namespace Game.UI.Presenter.Inventory
@@ -26,8 +28,29 @@ namespace Game.UI.Presenter.Inventory
         {
             OnDestroy();
         }
+
+        public Task Show()
+        {
+            return OnShow();
+        }
+
+        public Task Hide()
+        {
+            return OnHide();
+        }
         
         protected abstract void OnInitialize();
+
         protected abstract void OnDestroy();
+
+        protected virtual async Task OnShow()
+        {
+            await view.Show();
+        }
+
+        protected virtual async Task OnHide()
+        {
+            await view.Hide();
+        }
     }
 }

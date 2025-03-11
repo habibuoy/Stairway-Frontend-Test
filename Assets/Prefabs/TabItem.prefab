@@ -132,6 +132,8 @@ MonoBehaviour:
   path: 
   activeColor: {r: 0.9058824, g: 0.67058825, b: 0.50980395, a: 1}
   inactiveColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+  hoverAnimationScale: {x: 1.15, y: 1.15, z: 1.15}
+  hoverAnimationDuration: 0.1
 --- !u!222 &5119760258133796334
 CanvasRenderer:
   m_ObjectHideFlags: 0

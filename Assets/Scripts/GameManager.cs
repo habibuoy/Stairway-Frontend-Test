@@ -71,8 +71,8 @@ namespace Game
 
         private void OpenInventory()
         {
-            inventoryManager.Show();
             canvas.enabled = false;
+            _ = inventoryManager.Show();
         }
 
         private void OnInventoryHidden()

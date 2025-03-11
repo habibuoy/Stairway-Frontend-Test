@@ -26,7 +26,6 @@ namespace Game.UI.View.Inventory
         private ItemCategory currentCategory;
         private ListViewItem selectedCraftableItem;
 
-        private Canvas canvas;
         private bool isHolding;
         private float holdProgress;
 
@@ -39,11 +38,9 @@ namespace Game.UI.View.Inventory
         public event Action<CraftableRecipeItemData> CraftableItemHeld;
         public event Action BackInputted;
 
-        public override void Initialize()
+        public override void OnInitialize()
         {
-            base.Initialize();
-            canvas = GetComponent<Canvas>();
-            Hide();
+            base.OnInitialize();
             backpackItemlist.ItemClicked += OnBackpackItemClicked;
             craftableItemlist.ItemClicked += OnCraftableItemClicked;
             craftableItemlist.ItemBegunHover += OnCraftableItemBegunHover;
@@ -51,6 +48,7 @@ namespace Game.UI.View.Inventory
             craftableItemlist.ItemBegunClick += OnCraftableItemBegunClick;
             craftableItemlist.ItemEndedClick += OnCraftableItemEndedClick;
             categoryTabView.TabChanged += OnCategoryTabChanged;
+            craftableHoverInfo.Initialize();
             craftableHoverInfo.HideInfo();
 
             craftableItemlist.ToggleItemSelectable(true);
@@ -99,16 +97,6 @@ namespace Game.UI.View.Inventory
             {
                 InputBack();
             }
-        }
-
-        public void Show()
-        {
-            canvas.enabled = true;
-        }
-
-        public void Hide()
-        {
-            canvas.enabled = false;
         }
 
         public void UpdateBackpackItems(List<IListData> datas)
