@@ -24,8 +24,8 @@ namespace Game.UI.View.Components
         public event Action<ListViewItem> ItemClicked;
         public event Action<ListViewItem> ItemBegunHover;
         public event Action<ListViewItem> ItemEndedHover;
-        public event Action<ListViewItem> ItemBegunClick;
-        public event Action<ListViewItem> ItemEndedClick;
+        public event Action<ListViewItem, ClickData> ItemBegunClick;
+        public event Action<ListViewItem, ClickData> ItemEndedClick;
 
         public void UpdateList(List<IListData> listData, Action<ListViewItem> customConfiguration = null)
         {
@@ -134,12 +134,12 @@ namespace Game.UI.View.Components
 
         private void OnItemBegunClick(Clickable clickable, ClickData clickData)
         {
-            ItemBegunClick?.Invoke(clickable as ListViewItem);
+            ItemBegunClick?.Invoke(clickable as ListViewItem, clickData);
         }
 
         private void OnItemEndedClick(Clickable clickable, ClickData clickData)
         {
-            ItemEndedClick?.Invoke(clickable as ListViewItem);
+            ItemEndedClick?.Invoke(clickable as ListViewItem, clickData);
         }
 
         public void SelectItem(int itemIndex)

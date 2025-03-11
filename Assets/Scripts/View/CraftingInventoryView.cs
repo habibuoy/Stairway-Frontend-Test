@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Game.UI.View.Components;
 using System.Collections.Generic;
 using System;
@@ -157,7 +158,6 @@ namespace Game.UI.View.Inventory
 
         private void ResetHolding()
         {
-            Debug.Log("Reset holding");
             isHolding = false;
             holdProgress = craftMoreKeyHoldDuration;
         }
@@ -214,24 +214,25 @@ namespace Game.UI.View.Inventory
             }
         }
 
-        private void OnCraftableItemBegunClick(ListViewItem listItem)
+        private void OnCraftableItemBegunClick(ListViewItem listItem, ClickData clickData)
         {
             var data = listItem.Data as CraftableRecipeItemData;
             if (selectedCraftableItem != null
-                && selectedCraftableItem.Data == data)
+                && selectedCraftableItem.Data == data
+                && clickData.Button == PointerEventData.InputButton.Right)
             {
                 ResetHolding();
                 isHolding = true;
-                Debug.Log($"begin holding, isholding: {isHolding}");
             }
         }
 
-        private void OnCraftableItemEndedClick(ListViewItem listItem)
+        private void OnCraftableItemEndedClick(ListViewItem listItem, ClickData clickData)
         {
             var data = listItem.Data as CraftableRecipeItemData;
             if (isHolding 
                 && selectedCraftableItem != null 
-                && selectedCraftableItem.Data == data)
+                && selectedCraftableItem.Data == data
+                && clickData.Button == PointerEventData.InputButton.Right)
             {
                 ResetHolding();
             }

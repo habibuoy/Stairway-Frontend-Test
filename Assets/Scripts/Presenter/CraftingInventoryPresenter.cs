@@ -103,6 +103,7 @@ namespace Game.UI.Presenter.Inventory
             model.AddCraftableItem(craftableItem);
             view.UpdateBackpackItems(GetBasicItemDatas());
             view.UpdateCraftableItems(GetCraftableItemDatas());
+            view.HideCraftableHoverInfo();
         }
 
         private void OnCraftableBegunHovered(CraftableRecipeItemData itemData)
