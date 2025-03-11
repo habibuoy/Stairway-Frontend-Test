@@ -23,8 +23,9 @@ namespace Game.UI.View.Inventory
         public event Action<ClickData> HealthClicked;
         public event Action<ClickData> EnergyClicked;
 
-        public override void Initialize()
+        public override void OnInitialize()
         {
+            base.OnInitialize();
             goldClickable.Clicked += OnGoldClicked;
             healthClickable.Clicked += OnHealthClicked;
             energyClickable.Clicked += OnEnergyClicked;

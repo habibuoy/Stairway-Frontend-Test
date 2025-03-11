@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Game.UI.Model;
 using Game.UI.Model.Inventory;
 using Game.UI.Presenter.Inventory;
@@ -63,14 +64,16 @@ namespace Game.UI.Inventory
             craftingInventoryPresenter.Hidden -= OnCraftingHidden;
         }
 
-        public void Show()
+        public async Task Show()
         {
             canvas.enabled = true;
-            craftingInventoryPresenter.Show();
+            await generalInventoryPresenter.Show();
+            await craftingInventoryPresenter.Show();
         }
 
-        public void Hide()
+        public async Task Hide()
         {
+            await generalInventoryPresenter.Hide();
             canvas.enabled = false;
             Hidden?.Invoke();
         }
@@ -130,7 +133,7 @@ namespace Game.UI.Inventory
 
         private void OnCraftingHidden()
         {
-            Hide();
+            _ = Hide();
         }
     }
 }

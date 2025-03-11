@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Game.UI.Model.Inventory;
 using Game.UI.SO;
 using Game.UI.View.Components;
+using Game.UI.View.Components.Transitions;
 using Game.UI.View.Inventory;
 
 namespace Game.UI.Presenter.Inventory
@@ -45,11 +47,6 @@ namespace Game.UI.Presenter.Inventory
             view.CraftablePinInputted -= OnCraftableItemInputtedPin;
             view.CraftableItemHeld -= OnCraftableItemHeld;
             view.BackInputted -= OnBackInputted;
-        }
-
-        public void Show()
-        {
-            view.Show();
         }
 
         private void OnModelItemChanged(Item item)
@@ -143,7 +140,12 @@ namespace Game.UI.Presenter.Inventory
 
         private void OnBackInputted()
         {
-            view.Hide();
+            _ = Back();
+        }
+
+        private async Task Back()
+        {
+            await Hide();
             Hidden?.Invoke();
         }
 
