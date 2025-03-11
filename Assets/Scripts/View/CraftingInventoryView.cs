@@ -48,6 +48,7 @@ namespace Game.UI.View.Inventory
             craftableItemlist.ItemBegunClick += OnCraftableItemBegunClick;
             craftableItemlist.ItemEndedClick += OnCraftableItemEndedClick;
             categoryTabView.TabChanged += OnCategoryTabChanged;
+            craftableHoverInfo.Initialize();
             craftableHoverInfo.HideInfo();
 
             craftableItemlist.ToggleItemSelectable(true);
