@@ -21,7 +21,7 @@ namespace Game.UI.View.Components
         public bool IsItemSelectable { get; private set; }
         public bool IsItemHoverable { get; private set; }
         public RectTransform Content => scrollRect.content;
-        public event Action<ListViewItem> ItemClicked;
+        public event Action<ListViewItem, ClickData> ItemClicked;
         public event Action<ListViewItem> ItemBegunHover;
         public event Action<ListViewItem> ItemEndedHover;
         public event Action<ListViewItem, ClickData> ItemBegunClick;
@@ -119,7 +119,7 @@ namespace Game.UI.View.Components
         private void OnItemClicked(Clickable clickable, ClickData clickData)
         {
             if (!IsItemSelectable) return;
-            ItemClicked?.Invoke(clickable as ListViewItem);
+            ItemClicked?.Invoke(clickable as ListViewItem, clickData);
         }
 
         private void OnItemBegunHover(ListViewItem listViewItem)

@@ -4,6 +4,7 @@ using Game.UI.View.Components;
 using System.Collections.Generic;
 using System;
 using Game.UI.Model.Inventory;
+using UnityEngine.UI;
 
 namespace Game.UI.View.Inventory
 {
@@ -15,7 +16,12 @@ namespace Game.UI.View.Inventory
         [SerializeField] private CraftableHoverInfo craftableHoverInfo;
         [SerializeField] private TabView categoryTabView;
         [SerializeField] private KeyCode pinCraftableKeyCode;
+        [SerializeField] private Image craftMoreHoldIndicatorImage;
         [SerializeField] private float craftMoreKeyHoldDuration = 1f;
+        [SerializeField] private Clickable craftButton;
+        [SerializeField] private Clickable craftMoreButton;
+        [SerializeField] private Clickable pinButton;
+        [SerializeField] private Clickable backButton;
 
         private ItemCategory currentCategory;
         private ListViewItem selectedCraftableItem;
@@ -44,6 +50,14 @@ namespace Game.UI.View.Inventory
             craftableHoverInfo.HideInfo();
 
             craftableItemlist.ToggleItemSelectable(true);
+
+            craftButton.Clicked += (clickable, clickData) => 
+                OnCraftableItemClicked(selectedCraftableItem, ClickData.Left());
+            craftMoreButton.ClickBegun += (clickable, clickData) => 
+                OnCraftableItemBegunClick(selectedCraftableItem, ClickData.Right());
+            craftMoreButton.ClickEnded += (clickable, clickData) => 
+                OnCraftableItemEndedClick(selectedCraftableItem, ClickData.Right());
+            pinButton.Clicked += (clickable, clickData) => InputPin();
         }
 
         private void OnDestroy()
@@ -61,15 +75,14 @@ namespace Game.UI.View.Inventory
         {
             if (Input.GetKeyUp(pinCraftableKeyCode))
             {
-                var selected = craftableItemlist.GetListViewItem(item => item.IsSelected);
-                if (selected == null) return;
-                CraftablePinInputted?.Invoke(selected.Data as CraftableRecipeItemData);
+                InputPin();
             }
 
             if (isHolding
                 && selectedCraftableItem != null)
             {
                 holdProgress -= Time.deltaTime;
+                craftMoreHoldIndicatorImage.fillAmount = 1f - holdProgress / craftMoreKeyHoldDuration;
                 if (holdProgress <= 0f)
                 {
                     ResetHolding();
@@ -113,7 +126,7 @@ namespace Game.UI.View.Inventory
             if (listItem == null)
             {
                 return;
-            }
+            };
 
             craftableHoverInfo.ShowInfo(craftableRecipeItemData, listItem.RectTransform.anchoredPosition);
         }
@@ -156,9 +169,16 @@ namespace Game.UI.View.Inventory
             craftableItemlist.SetPinned(selectedCraftableItem.Index, !selectedCraftableItem.IsPinned);
         }
 
+        private void InputPin()
+        {
+            if (selectedCraftableItem == null) return;
+            CraftablePinInputted?.Invoke(selectedCraftableItem.Data as CraftableRecipeItemData);
+        }
+
         private void ResetHolding()
         {
             isHolding = false;
+            craftMoreHoldIndicatorImage.gameObject.SetActive(false);
             holdProgress = craftMoreKeyHoldDuration;
         }
 
@@ -182,30 +202,37 @@ namespace Game.UI.View.Inventory
             listItem.SetBlanked();
         }
 
-        private void OnBackpackItemClicked(ListViewItem listItem)
+        private void OnBackpackItemClicked(ListViewItem listItem, ClickData clickData)
         {
+            if (listItem == null) return;
             BackpackItemClicked?.Invoke(listItem.Data as ItemData);
         }
 
-        private void OnCraftableItemClicked(ListViewItem listItem)
+        private void OnCraftableItemClicked(ListViewItem listItem, ClickData clickData)
         {
+            if (listItem == null) return;
             craftableItemlist.SetSelected(listItem.Index);
             CraftableItemClicked?.Invoke(listItem.Data as CraftableRecipeItemData,
-                selectedCraftableItem == listItem);
+                clickData.Button == PointerEventData.InputButton.Left && selectedCraftableItem == listItem);
             selectedCraftableItem = listItem;
         }
 
         private void OnCraftableItemBegunHover(ListViewItem listItem)
         {
+            if (listItem == null) return;
             craftableItemlist.SetHovered(listItem.Index);
             CraftableItemBegunHover?.Invoke(listItem.Data as CraftableRecipeItemData);
         }
 
         private void OnCraftableItemEndedHover(ListViewItem listItem)
         {
-            var data = listItem.Data as CraftableRecipeItemData;
-            craftableItemlist.SetHovered(listItem.Index, false);
-            CraftableItemEndedHover?.Invoke(data);
+            CraftableRecipeItemData data = null;
+            if (listItem != null)
+            {
+                data = listItem.Data as CraftableRecipeItemData;
+                craftableItemlist.SetHovered(listItem.Index, false);
+                CraftableItemEndedHover?.Invoke(data);
+            }
             if (isHolding 
                 && selectedCraftableItem != null 
                 && selectedCraftableItem.Data == data)
@@ -216,18 +243,22 @@ namespace Game.UI.View.Inventory
 
         private void OnCraftableItemBegunClick(ListViewItem listItem, ClickData clickData)
         {
+            if (listItem == null) return;
+
             var data = listItem.Data as CraftableRecipeItemData;
             if (selectedCraftableItem != null
                 && selectedCraftableItem.Data == data
                 && clickData.Button == PointerEventData.InputButton.Right)
             {
                 ResetHolding();
+                craftMoreHoldIndicatorImage.gameObject.SetActive(true);
                 isHolding = true;
             }
         }
 
         private void OnCraftableItemEndedClick(ListViewItem listItem, ClickData clickData)
         {
+            if (listItem == null) return;
             var data = listItem.Data as CraftableRecipeItemData;
             if (isHolding 
                 && selectedCraftableItem != null 

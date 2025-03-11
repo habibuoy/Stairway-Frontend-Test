@@ -21,6 +21,8 @@ namespace Game.UI.View
         private void OnDestroy()
         {
             Clicked = null;
+            ClickBegun = null;
+            ClickEnded = null;
             OnDestroyed();
         }
 
