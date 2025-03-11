@@ -17,5 +17,10 @@ namespace Game.Extensions
         {
             return $"#{ColorUtility.ToHtmlStringRGBA(insufficientCraftColor)}";
         }
+
+        public static string GetBlackStringColor()
+        {
+            return $"#{ColorUtility.ToHtmlStringRGBA(Color.black)}";
+        }
     }
 }

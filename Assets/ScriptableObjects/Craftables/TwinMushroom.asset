@@ -19,3 +19,5 @@ MonoBehaviour:
   recipe:
   - item: {fileID: 11400000, guid: 6417cebd3aa78b847ac8f86c0c26e300, type: 2}
     count: 2
+  space: 0
+  craftDuration: 1

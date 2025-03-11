@@ -21,3 +21,5 @@ MonoBehaviour:
     count: 2
   - item: {fileID: 11400000, guid: ead3608e47146684d8827c9824247767, type: 2}
     count: 4
+  space: 1
+  craftDuration: 2

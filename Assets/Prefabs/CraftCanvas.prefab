@@ -3494,7 +3494,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &727157760680717546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3694,6 +3694,8 @@ MonoBehaviour:
   nameText: {fileID: 527889142263794366}
   descriptionText: {fileID: 8878391667344827737}
   categoryText: {fileID: 603506640025385474}
+  spaceText: {fileID: 3617498214083135137}
+  craftDurationText: {fileID: 5999968149317294014}
   ingredientList: {fileID: 2014506363258116001}
 --- !u!114 &7928890868992470464
 MonoBehaviour:

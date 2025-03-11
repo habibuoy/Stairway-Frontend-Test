@@ -22,3 +22,5 @@ MonoBehaviour:
     count: 3
   - item: {fileID: 11400000, guid: 8efcc828bc201254fa26b12669f2089e, type: 2}
     count: 3
+  space: 0
+  craftDuration: 1
