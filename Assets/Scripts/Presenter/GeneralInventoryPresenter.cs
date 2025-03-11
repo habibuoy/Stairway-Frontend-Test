@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 
 namespace Game.UI.Presenter.Inventory
 {
-    public class GeneralInventoryPresenter : BaseInventoryPresenter<GeneralInventoryModel, GeneralInventoryView>
+    public class GeneralInventoryPresenter : BaseInventoryPresenter<GeneralInventoryModel, GeneralInventoryView>,
+        IParentInventoryPresenter
     {
         private const int IncreaseGoldAmount = 25;
         private const int DecreaseGoldAmount = 25;

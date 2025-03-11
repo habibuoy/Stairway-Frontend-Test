@@ -11,7 +11,7 @@ namespace Game.UI.Presenter.Inventory
 {
     public class CraftingInventoryPresenter : BaseInventoryPresenter<CraftingInventoryModel, CraftingInventoryView>
     {
-        public event Action Hidden;
+        public event Action CloseInputted;
 
         public CraftingInventoryPresenter(CraftingInventoryModel model, CraftingInventoryView view) 
             : base(model, view) { }
@@ -139,13 +139,7 @@ namespace Game.UI.Presenter.Inventory
 
         private void OnBackInputted()
         {
-            _ = Back();
-        }
-
-        private async Task Back()
-        {
-            await Hide();
-            Hidden?.Invoke();
+            CloseInputted?.Invoke();
         }
 
         private List<IListData> GetBasicItemDatas(Func<Item, bool> match = null)

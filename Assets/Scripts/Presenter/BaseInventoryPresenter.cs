@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
 using Game.UI.Model.Inventory;
-using Game.UI.View.Components.Transitions;
 using Game.UI.View.Inventory;
 
 namespace Game.UI.Presenter.Inventory
 {
-    public abstract class BaseInventoryPresenter<TModel, TView>
+    public abstract class BaseInventoryPresenter<TModel, TView> : IInventoryPresenter
         where TModel : BaseInventoryModel
         where TView : BaseInventoryView
     {
