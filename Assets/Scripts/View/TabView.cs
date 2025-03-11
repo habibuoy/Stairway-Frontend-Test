@@ -37,6 +37,11 @@ namespace Game.UI
                 cycleNextButton.KeyPressed += (key) => CycleNext();
             }
 
+            foreach (var button in buttons)
+            {
+                button.Initialize();
+            }
+
             if (string.IsNullOrEmpty(defaultPath))
             {
                 buttons[0].ToggleActive(true);

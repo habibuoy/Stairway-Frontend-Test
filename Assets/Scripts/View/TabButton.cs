@@ -18,10 +18,13 @@ namespace Game.UI
 
         public string Path => path;
 
-        private void Awake()
+        public void Initialize()
         {
             nameText.text = path;
+            OnInitialize();
         }
+
+        protected virtual void OnInitialize() { }
 
         public virtual void ToggleActive(bool active)
         {
