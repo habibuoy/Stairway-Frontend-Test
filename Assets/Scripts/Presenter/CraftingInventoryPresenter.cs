@@ -5,12 +5,13 @@ using Game.UI.Model.Inventory;
 using Game.UI.SO;
 using Game.UI.View.Components;
 using Game.UI.View.Inventory;
-using UnityEngine;
 
 namespace Game.UI.Presenter.Inventory
 {
     public class CraftingInventoryPresenter : BaseInventoryPresenter<CraftingInventoryModel, CraftingInventoryView>
     {
+        public event Action Hidden;
+
         public CraftingInventoryPresenter(CraftingInventoryModel model, CraftingInventoryView view) 
             : base(model, view) { }
 
@@ -27,6 +28,7 @@ namespace Game.UI.Presenter.Inventory
             view.CategoryTabChanged += OnCategoryTabChanged;
             view.CraftablePinInputted += OnCraftableItemInputtedPin;
             view.CraftableItemHeld += OnCraftableItemHeld;
+            view.BackInputted += OnBackInputted;
 
             view.SelectCraftableItem(0);
         }
@@ -42,6 +44,12 @@ namespace Game.UI.Presenter.Inventory
             view.CategoryTabChanged -= OnCategoryTabChanged;
             view.CraftablePinInputted -= OnCraftableItemInputtedPin;
             view.CraftableItemHeld -= OnCraftableItemHeld;
+            view.BackInputted -= OnBackInputted;
+        }
+
+        public void Show()
+        {
+            view.Show();
         }
 
         private void OnModelItemChanged(Item item)
@@ -131,6 +139,12 @@ namespace Game.UI.Presenter.Inventory
         private void OnCraftableItemInputtedPin(CraftableRecipeItemData craftableRecipeItemData)
         {
             view.PinCraftableItem(craftableRecipeItemData);
+        }
+
+        private void OnBackInputted()
+        {
+            view.Hide();
+            Hidden?.Invoke();
         }
 
         private List<IListData> GetBasicItemDatas(Func<Item, bool> match = null)

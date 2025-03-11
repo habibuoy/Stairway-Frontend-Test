@@ -26,6 +26,7 @@ namespace Game.UI.View.Inventory
         private ItemCategory currentCategory;
         private ListViewItem selectedCraftableItem;
 
+        private Canvas canvas;
         private bool isHolding;
         private float holdProgress;
 
@@ -36,10 +37,13 @@ namespace Game.UI.View.Inventory
         public event Action<ItemCategory> CategoryTabChanged;
         public event Action<CraftableRecipeItemData> CraftablePinInputted; 
         public event Action<CraftableRecipeItemData> CraftableItemHeld;
+        public event Action BackInputted;
 
         public override void Initialize()
         {
             base.Initialize();
+            canvas = GetComponent<Canvas>();
+            Hide();
             backpackItemlist.ItemClicked += OnBackpackItemClicked;
             craftableItemlist.ItemClicked += OnCraftableItemClicked;
             craftableItemlist.ItemBegunHover += OnCraftableItemBegunHover;
@@ -58,6 +62,7 @@ namespace Game.UI.View.Inventory
             craftMoreButton.ClickEnded += (clickable, clickData) => 
                 OnCraftableItemEndedClick(selectedCraftableItem, ClickData.Right());
             pinButton.Clicked += (clickable, clickData) => InputPin();
+            backButton.Clicked += (clickable, clickData) => InputBack();
         }
 
         private void OnDestroy()
@@ -89,6 +94,21 @@ namespace Game.UI.View.Inventory
                     CraftableItemHeld?.Invoke(selectedCraftableItem.Data as CraftableRecipeItemData);
                 }
             }
+
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                InputBack();
+            }
+        }
+
+        public void Show()
+        {
+            canvas.enabled = true;
+        }
+
+        public void Hide()
+        {
+            canvas.enabled = false;
         }
 
         public void UpdateBackpackItems(List<IListData> datas)
@@ -167,6 +187,11 @@ namespace Game.UI.View.Inventory
                 || selectedCraftableItem.Data != craftableRecipeItemData) return;
 
             craftableItemlist.SetPinned(selectedCraftableItem.Index, !selectedCraftableItem.IsPinned);
+        }
+
+        private void InputBack()
+        {
+            BackInputted?.Invoke();
         }
 
         private void InputPin()

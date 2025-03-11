@@ -22,11 +22,19 @@ namespace Game.UI.Inventory
         private const int MaxHealth = 420;
         private const int MaxEnergy = 400;
         private const int Gold = 840;
+
+        private Canvas canvas;
         
         private GeneralInventoryPresenter generalInventoryPresenter;
+        private CraftingInventoryPresenter craftingInventoryPresenter;
+
+        public event Action Hidden;
 
         private void Awake()
         {
+            canvas = GetComponent<Canvas>();
+            canvas.enabled = false;
+
             var characterModel = new CharacterModel(MaxHealth, MaxHealth, MaxEnergy, MaxEnergy);
 
             List<Item> items = GenerateItems();
@@ -39,8 +47,9 @@ namespace Game.UI.Inventory
             generalInventoryPresenter.Initialize();
 
             var craftingInventoryModel = new CraftingInventoryModel(sharedInventoryData);
-            var craftingInventoryPresenter = new CraftingInventoryPresenter(craftingInventoryModel, craftingInventoryView);
+            craftingInventoryPresenter = new CraftingInventoryPresenter(craftingInventoryModel, craftingInventoryView);
             craftingInventoryPresenter.Initialize();
+            craftingInventoryPresenter.Hidden += OnCraftingHidden;
         }
 
         private void Start()
@@ -51,6 +60,19 @@ namespace Game.UI.Inventory
         private void OnDestroy()
         {
             GameManager.Instance.CurrentTimeChanged -= OnCurrentTimeChanged;
+            craftingInventoryPresenter.Hidden -= OnCraftingHidden;
+        }
+
+        public void Show()
+        {
+            canvas.enabled = true;
+            craftingInventoryPresenter.Show();
+        }
+
+        public void Hide()
+        {
+            canvas.enabled = false;
+            Hidden?.Invoke();
         }
 
         private List<Item> GenerateItems()
@@ -104,6 +126,11 @@ namespace Game.UI.Inventory
         private void OnCurrentTimeChanged(DateTime dateTime)
         {
             generalInventoryPresenter.UpdateCurrentTime(dateTime, GameManager.Instance.FirstPlayDateTime);
+        }
+
+        private void OnCraftingHidden()
+        {
+            Hide();
         }
     }
 }
