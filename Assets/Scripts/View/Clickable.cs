@@ -39,11 +39,20 @@ namespace Game.UI.View
 
         protected virtual void OnDestroyed() { }
 
-        protected virtual void OnClicked(ClickData clickData) { }
+        protected virtual void OnClicked(ClickData clickData) 
+        {
+            Clicked?.Invoke(this, clickData);
+        }
 
-        protected virtual void OnClickBegun(ClickData clickData) { }
+        protected virtual void OnClickBegun(ClickData clickData) 
+        {
+            ClickBegun?.Invoke(this, clickData);
+        }
 
-        protected virtual void OnClickEnded(ClickData clickData) { }
+        protected virtual void OnClickEnded(ClickData clickData) 
+        {
+            ClickEnded?.Invoke(this, clickData);
+        }
 
         protected virtual void OnHoverBegun() 
         {
@@ -122,20 +131,17 @@ namespace Game.UI.View
         {
             IsClicking = true;
             OnClickBegun(clickData);
-            ClickBegun?.Invoke(this, clickData);
         }
 
         protected void EndClick(ClickData clickData)
         {
             IsClicking = false;
             OnClickEnded(clickData);
-            ClickEnded?.Invoke(this, clickData);
         }
 
         protected void Click(ClickData clickData)
         {
             OnClicked(clickData);
-            Clicked?.Invoke(this, clickData);
         }
 
         protected void BeginHover()

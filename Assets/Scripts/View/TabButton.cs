@@ -1,3 +1,4 @@
+using Game.UI.View;
 using Game.UI.View.Components;
 using TMPro;
 using UnityEngine;
@@ -37,6 +38,12 @@ namespace Game.UI
                     : 0f;
 
             buttonImage.color = color;
+        }
+
+        protected override void OnClicked(ClickData clickData)
+        {
+            if (IsActive) return;
+            base.OnClicked(clickData);
         }
 
         protected override void OnHoverBegun()
