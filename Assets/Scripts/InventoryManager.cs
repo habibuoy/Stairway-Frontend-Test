@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Game.Interface.UI.Inventory;
@@ -9,7 +8,6 @@ using Game.UI.Model.Inventory;
 using Game.UI.Presenter.Inventory;
 using Game.UI.SO;
 using Game.UI.View.Inventory;
-using UnityEditor.AnimatedValues;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
