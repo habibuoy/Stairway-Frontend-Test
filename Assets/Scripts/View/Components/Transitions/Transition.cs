@@ -40,7 +40,13 @@ namespace Game.UI.View.Components.Transitions
                 if (animation.TransitionType != TransitionAnimationType.Out) continue;
                 transitionSequence.Insert(animation.Position, animation.Play());
             }
-            return transitionSequence.Play().AsyncWaitForCompletion();
+            return transitionSequence.Play().OnComplete(() => 
+            {
+                foreach (var animation in animations)
+                {
+                    animation.Reset();
+                }
+            }).AsyncWaitForCompletion();
         }
     }
 }

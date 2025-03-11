@@ -27,5 +27,10 @@ namespace Game.UI.View.Components.Transitions
             rectTransform.anchoredPosition = defaultPosition;
                 return rectTransform.DOAnchorPos(defaultPosition + offsetPosition, duration).SetEase(ease);
         }
+
+        protected override void OnReset()
+        {
+            rectTransform.anchoredPosition = defaultPosition;
+        }
     }
 }

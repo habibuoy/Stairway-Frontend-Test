@@ -67,8 +67,10 @@ namespace Game.UI.Inventory
         public async Task Show()
         {
             canvas.enabled = true;
-            await generalInventoryPresenter.Show();
-            await craftingInventoryPresenter.Show();
+            await Task.WhenAll(
+                generalInventoryPresenter.Show(),
+                craftingInventoryPresenter.Show()
+            );
         }
 
         public async Task Hide()

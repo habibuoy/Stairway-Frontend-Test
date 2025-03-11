@@ -7,7 +7,7 @@ namespace Game.UI.View.Components.Transitions
         void Initialize();
 
         Task In();
-        
+
         Task Out();
     }
 }

@@ -17,6 +17,7 @@ namespace Game.UI.View.Inventory
                 transition.Initialize();
             }
             OnInitialize();
+            HideCanvas();
         }
 
         public Task Show()
@@ -29,11 +30,21 @@ namespace Game.UI.View.Inventory
             return OnHide();
         }
 
+        protected void ShowCanvas()
+        {
+            canvas.enabled = true;
+        }
+
+        protected void HideCanvas()
+        {
+            canvas.enabled = false;
+        }
+
         public virtual void OnInitialize() { }
 
         public virtual async Task OnShow()
         {
-            canvas.enabled = true;
+            ShowCanvas();
             if (GameManager.Instance.UseAnimation)
             {
                 if (transition != null)
@@ -52,7 +63,7 @@ namespace Game.UI.View.Inventory
                     await transition.Out();
                 }
             }
-            canvas.enabled = false;
+            HideCanvas();
         }
     }
 }

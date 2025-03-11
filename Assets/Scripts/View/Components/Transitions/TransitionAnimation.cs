@@ -17,17 +17,21 @@ namespace Game.UI.View.Components.Transitions
 
         protected abstract Tween OnPlay();
         protected abstract void OnInitialize();
+        protected abstract void OnReset();
 
         Tween ITransitionAnimation.Play()
         {
             return OnPlay();
         }
 
-
         void ITransitionAnimation.Initialize()
         {
-            Debug.Log($"Initialize animation");
             OnInitialize();
+        }
+
+        void ITransitionAnimation.Reset()
+        {
+            OnReset();
         }
     }
 }

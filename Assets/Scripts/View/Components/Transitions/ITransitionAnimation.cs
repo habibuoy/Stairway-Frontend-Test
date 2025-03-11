@@ -10,10 +10,13 @@ namespace Game.UI.View.Components.Transitions
         float Position { get; }
 
         float Duration { get; }
-        
+
         Tween Play();
 
         void Initialize();
+        
+        void Reset();
+
     }
 
     public enum TransitionAnimationType

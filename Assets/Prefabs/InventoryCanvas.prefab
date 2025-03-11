@@ -402,7 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionAnimationType: 1
   positionInTime: 0
-  duration: 0.5
+  duration: 0.25
   ease: 27
   offsetPosition: {x: 0, y: 128}
 --- !u!114 &156130429225367172
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionAnimationType: 2
   positionInTime: 0
-  duration: 1
+  duration: 0.25
   ease: 27
   offsetPosition: {x: 0, y: 128}
 --- !u!1 &1063634737062409559

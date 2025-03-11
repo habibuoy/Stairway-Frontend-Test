@@ -366,6 +366,8 @@ GameObject:
   - component: {fileID: 3691743961619998349}
   - component: {fileID: 5061127381510056599}
   - component: {fileID: 9220528108746195752}
+  - component: {fileID: 1921616470594111904}
+  - component: {fileID: 6749094504827905593}
   m_Layer: 5
   m_Name: CraftItemGrid
   m_TagString: Untagged
@@ -476,6 +478,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listItemPrefab: {fileID: 1739902993026899360, guid: 07aab404952c9644a82f6e5873a9b287, type: 3}
   scrollRect: {fileID: 5061127381510056599}
+--- !u!114 &1921616470594111904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751909700238466250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 1
+  positionInTime: 0.25
+  duration: 0.5
+  ease: 27
+  offsetPosition: {x: 0, y: 768}
+--- !u!114 &6749094504827905593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751909700238466250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 2
+  positionInTime: 0.25
+  duration: 0.15
+  ease: 27
+  offsetPosition: {x: 0, y: 768}
 --- !u!1 &1165618570690979001
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,6 +667,8 @@ GameObject:
   - component: {fileID: 2252710443619502025}
   - component: {fileID: 7338331460983398389}
   - component: {fileID: 7709297978870310412}
+  - component: {fileID: 7941760069348657307}
+  - component: {fileID: 2386321930131488274}
   m_Layer: 5
   m_Name: BackpackItemGrid
   m_TagString: Untagged
@@ -741,6 +779,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listItemPrefab: {fileID: 3080803247073163874, guid: 735f80f981be82a43a1c69dba8b817b6, type: 3}
   scrollRect: {fileID: 7338331460983398389}
+--- !u!114 &7941760069348657307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491845095218196233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 1
+  positionInTime: 0.35
+  duration: 0.5
+  ease: 27
+  offsetPosition: {x: 0, y: -768}
+--- !u!114 &2386321930131488274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491845095218196233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 2
+  positionInTime: 0.15
+  duration: 0.15
+  ease: 27
+  offsetPosition: {x: 0, y: -768}
 --- !u!1 &1613154096009908445
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,6 +1474,8 @@ GameObject:
   - component: {fileID: 3035500357217360822}
   - component: {fileID: 1783707282533271813}
   - component: {fileID: 6799031165878236282}
+  - component: {fileID: 1944625804386685697}
+  - component: {fileID: 599218393099109177}
   m_Layer: 5
   m_Name: TabParent
   m_TagString: Untagged
@@ -1484,6 +1558,40 @@ MonoBehaviour:
   - {fileID: 7896187212352747972}
   cycleNextButton: {fileID: 0}
   cyclePreviousButton: {fileID: 0}
+--- !u!114 &1944625804386685697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506302881608851934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 1
+  positionInTime: 0
+  duration: 0.5
+  ease: 27
+  offsetPosition: {x: -512, y: 0}
+--- !u!114 &599218393099109177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506302881608851934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 2
+  positionInTime: 0.45
+  duration: 0.15
+  ease: 27
+  offsetPosition: {x: -512, y: 0}
 --- !u!1 &2606685429201386472
 GameObject:
   m_ObjectHideFlags: 0
@@ -1606,6 +1714,8 @@ GameObject:
   - component: {fileID: 2225276959410689523}
   - component: {fileID: 404770238991421572}
   - component: {fileID: 6261693278313034110}
+  - component: {fileID: 6123488536015776073}
+  - component: {fileID: 2023426750848788613}
   m_Layer: 5
   m_Name: CraftButtons
   m_TagString: Untagged
@@ -1674,6 +1784,40 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6123488536015776073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2831853024477314682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 1
+  positionInTime: 0.5
+  duration: 0.25
+  ease: 27
+  offsetPosition: {x: 768, y: 0}
+--- !u!114 &2023426750848788613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2831853024477314682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 2
+  positionInTime: 0
+  duration: 0.5
+  ease: 27
+  offsetPosition: {x: 768, y: 0}
 --- !u!1 &2919009964520176573
 GameObject:
   m_ObjectHideFlags: 0
@@ -3272,6 +3416,7 @@ GameObject:
   - component: {fileID: 4740237360129298000}
   - component: {fileID: 727157760680717546}
   - component: {fileID: 2715635612523738207}
+  - component: {fileID: 3306435926124255598}
   m_Layer: 5
   m_Name: CraftCanvas
   m_TagString: Untagged
@@ -3346,7 +3491,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &727157760680717546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3388,6 +3533,18 @@ MonoBehaviour:
   craftMoreButton: {fileID: 4292531740607130086}
   pinButton: {fileID: 8468483069746067430}
   backButton: {fileID: 7901585742173909631}
+--- !u!114 &3306435926124255598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5985977106763772608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac7b8ec848bd7894498b5b48ba8fc013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6015813093463030338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3488,6 +3645,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8790947988903014585}
   - component: {fileID: 4358152478555380148}
+  - component: {fileID: 7928890868992470464}
+  - component: {fileID: 8163280903660757371}
   m_Layer: 5
   m_Name: CraftDetailParent
   m_TagString: Untagged
@@ -3533,6 +3692,40 @@ MonoBehaviour:
   descriptionText: {fileID: 8878391667344827737}
   categoryText: {fileID: 603506640025385474}
   ingredientList: {fileID: 2014506363258116001}
+--- !u!114 &7928890868992470464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6747689874844255152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 1
+  positionInTime: 0.5
+  duration: 0.5
+  ease: 27
+  offsetPosition: {x: 768, y: 0}
+--- !u!114 &8163280903660757371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6747689874844255152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96b4311880739b542b7936ea3b145843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionAnimationType: 2
+  positionInTime: 0
+  duration: 0.15
+  ease: 27
+  offsetPosition: {x: 768, y: 0}
 --- !u!1 &6848959957221161406
 GameObject:
   m_ObjectHideFlags: 0
