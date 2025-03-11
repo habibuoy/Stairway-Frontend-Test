@@ -47,7 +47,9 @@ namespace Game.UI.View.Inventory
             craftableItemlist.ItemEndedHover += OnCraftableItemEndedHover;
             craftableItemlist.ItemBegunClick += OnCraftableItemBegunClick;
             craftableItemlist.ItemEndedClick += OnCraftableItemEndedClick;
+            categoryTabView.Initialize();
             categoryTabView.TabChanged += OnCategoryTabChanged;
+            categoryTabView.SetTab("All");
             craftableHoverInfo.Initialize();
             craftableHoverInfo.HideInfo();
 

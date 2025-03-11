@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Game.UI.Model.Inventory;
 using Game.UI.SO;
 using Game.UI.View.Components;
-using Game.UI.View.Components.Transitions;
 using Game.UI.View.Inventory;
 
 namespace Game.UI.Presenter.Inventory

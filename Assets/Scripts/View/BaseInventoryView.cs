@@ -6,8 +6,12 @@ namespace Game.UI.View.Inventory
 {
     public abstract class BaseInventoryView : MonoBehaviour
     {
+        [SerializeField] private string path;
+
         protected Canvas canvas;
         protected ITransition transition;
+
+        public virtual string Path => path;
 
         public void Initialize() 
         {

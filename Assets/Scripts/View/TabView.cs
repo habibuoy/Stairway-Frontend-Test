@@ -13,10 +13,11 @@ namespace Game.UI
         [SerializeField] private TabCycleButton cyclePreviousButton;
 
         private int currentTabIndex;
+        private CanvasGroup canvasGroup;
         
         public event Action<string> TabChanged;
 
-        private void Awake()
+        public void Initialize()
         {
             if (buttons == null
                 || buttons.Length == 0)
@@ -24,6 +25,8 @@ namespace Game.UI
                 Debug.LogError($"{nameof(TabView)}: Tab buttons are not assigned");
                 return;
             }
+
+            canvasGroup = GetComponent<CanvasGroup>();
 
             if (cyclePreviousButton)
             {
@@ -42,24 +45,17 @@ namespace Game.UI
                 button.Initialize();
             }
 
-            if (string.IsNullOrEmpty(defaultPath))
+            for (int i = 0; i < buttons.Length; i++)
             {
-                buttons[0].ToggleActive(true);
-            }
-            else
-            {
-                for (int i = 0; i < buttons.Length; i++)
-                {
-                    var button = buttons[i];
-                    button.Clicked += OnButtonClicked;
-                    if (button.Path == defaultPath)
-                    {
-                        button.ToggleActive(true);
-                        currentTabIndex = i;
-                        continue;
-                    }
-                    button.ToggleActive(false);
-                }
+                var button = buttons[i];
+                button.Clicked += OnButtonClicked;
+                // if (button.Path == defaultPath)
+                // {
+                //     button.ToggleActive(true);
+                //     currentTabIndex = i;
+                //     continue;
+                // }
+                // button.ToggleActive(false);
             }
         }
 
@@ -74,11 +70,14 @@ namespace Game.UI
 
         private void SetActiveTab(string path)
         {
-            foreach (var button in buttons)
+            for (int i = 0; i < buttons.Length; i++)
             {
+                var button = buttons[i];
+                
                 if (button.Path == path)
                 {
                     button.ToggleActive(true);
+                    currentTabIndex = i;
                     TabChanged?.Invoke(path);
                     continue;
                 }
@@ -108,6 +107,18 @@ namespace Game.UI
         {
             var tabButton = clickable as TabButton;
             SetActiveTab(tabButton.Path);
+        }
+
+        public void SetInteractable(bool isInteractable = true)
+        {
+            if (!canvasGroup) return;
+            canvasGroup.interactable = isInteractable;
+            canvasGroup.blocksRaycasts = isInteractable;
+        }
+
+        public void SetTab(string path)
+        {
+            SetActiveTab(path);
         }
     }
 }

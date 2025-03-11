@@ -1477,6 +1477,7 @@ GameObject:
   - component: {fileID: 6799031165878236282}
   - component: {fileID: 1944625804386685697}
   - component: {fileID: 599218393099109177}
+  - component: {fileID: 807813566219629192}
   m_Layer: 5
   m_Name: TabParent
   m_TagString: Untagged
@@ -1593,6 +1594,18 @@ MonoBehaviour:
   duration: 0.15
   ease: 27
   offsetPosition: {x: -512, y: 0}
+--- !u!225 &807813566219629192
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506302881608851934}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2606685429201386472
 GameObject:
   m_ObjectHideFlags: 0
@@ -3524,6 +3537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0be14e0664f6a7e4d9b13ec75dfc8b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  path: 
   backpackItemlist: {fileID: 7709297978870310412}
   craftableItemlist: {fileID: 9220528108746195752}
   craftableItemDetailView: {fileID: 4358152478555380148}
