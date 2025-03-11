@@ -4,14 +4,18 @@ using UnityEngine.EventSystems;
 
 namespace Game.UI.View
 {
-    public class Clickable : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
+    public class Clickable : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler,
+        IPointerEnterHandler, IPointerExitHandler
     {
         public bool IsInteractable { get; private set; } = true;
         public bool IsClicking { get; private set; }
+        public bool IsHovered { get; protected set; }
 
         public event Action<Clickable, ClickData> Clicked;
         public event Action<Clickable, ClickData> ClickBegun;
         public event Action<Clickable, ClickData> ClickEnded;
+        public event Action<Clickable> HoverBegun;
+        public event Action<Clickable> HoverEnded;
 
         private void Awake()
         {
@@ -32,11 +36,24 @@ namespace Game.UI.View
         }
 
         protected virtual void OnAwake() { }
+
         protected virtual void OnDestroyed() { }
 
         protected virtual void OnClicked(ClickData clickData) { }
+
         protected virtual void OnClickBegun(ClickData clickData) { }
+
         protected virtual void OnClickEnded(ClickData clickData) { }
+
+        protected virtual void OnHoverBegun() 
+        {
+            IsHovered = true;
+        }
+        
+        protected virtual void OnHoverEnded() 
+        {
+            IsHovered = false;
+        }
 
         void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
@@ -89,6 +106,18 @@ namespace Game.UI.View
             }
         }
 
+        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+        {
+            if (!IsInteractable) return;
+            BeginHover();
+        }
+
+        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+        {
+            if (!IsInteractable || !IsHovered) return;
+            EndHover();
+        }
+
         protected void BeginClick(ClickData clickData)
         {
             IsClicking = true;
@@ -107,6 +136,18 @@ namespace Game.UI.View
         {
             OnClicked(clickData);
             Clicked?.Invoke(this, clickData);
+        }
+
+        protected void BeginHover()
+        {
+            OnHoverBegun();
+            HoverBegun?.Invoke(this);
+        }
+
+        protected void EndHover()
+        {
+            OnHoverEnded();
+            HoverEnded?.Invoke(this);
         }
     }
 

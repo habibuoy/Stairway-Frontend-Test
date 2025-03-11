@@ -1,20 +1,15 @@
-using System;
-using Game.UI.View;
+using Game.UI.View.Components;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Game.UI
 {
-    public class TabButton : Clickable, IPointerEnterHandler, IPointerExitHandler
+    public class TabButton : BasicClickable
     {
-        [SerializeField] protected Image buttonImage;
         [SerializeField] protected TextMeshProUGUI nameText;
         [SerializeField] protected string path;
 
         public bool IsActive { get; private set; }
-        public bool IsHovered { get; private set; }
 
         public string Path => path;
 
@@ -44,34 +39,20 @@ namespace Game.UI
             buttonImage.color = color;
         }
 
-        public virtual void OnBegunHover()
+        protected override void OnHoverBegun()
         {
             if (IsActive) return;
-            
-            Color color = buttonImage.color;
-            color.a = 0.25f;
-
-            buttonImage.color = color;
+            base.OnHoverBegun();
         }
 
-        public virtual void OnEndedHover() 
-        {
-            Color color = buttonImage.color;
-            color.a = 0f;
-
-            buttonImage.color = color;
-        }
-
-        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
-        {
-            IsHovered = true;
-            OnBegunHover();
-        }
-
-        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+        protected override void OnHoverEnded()
         {
             IsHovered = false;
-            OnEndedHover();
+            if (IsActive) return;
+            Color color = buttonImage.color;
+            color.a =  0f;
+
+            buttonImage.color = color;
         }
     }
 }

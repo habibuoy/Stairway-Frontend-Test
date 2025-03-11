@@ -20,11 +20,5 @@ namespace Game.UI.View
                 : Vector2.zero;
             nameText.gameObject.SetActive(IsActive);
         }
-
-        public override void OnEndedHover()
-        {
-            if (IsActive) return;
-            base.OnEndedHover();
-        }
     }
 }

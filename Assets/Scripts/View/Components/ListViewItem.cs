@@ -12,13 +12,9 @@ namespace Game.UI.View.Components
         public int Index { get; private set; }
         public IListData Data { get; private set; }
         public bool IsSelected { get; private set; }
-        public bool IsHovered { get; private set; }
         public bool IsBlanked { get; private set; }
         public bool IsPinned { get; private set; }
         public RectTransform RectTransform => rectTransform;
-
-        public event Action<ListViewItem> HoverBegun;
-        public event Action<ListViewItem> HoverEnded;
 
         private void Awake()
         {
@@ -73,16 +69,14 @@ namespace Game.UI.View.Components
         protected virtual void OnSetBlanked() { }
         protected virtual void OnSetPinned() { }
 
-        void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+        protected override void OnHoverBegun()
         {
-            if (!IsInteractable) return;
-            HoverBegun?.Invoke(this);
+            
         }
 
-        void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+        protected override void OnHoverEnded()
         {
-            if (!IsInteractable) return;
-            HoverEnded?.Invoke(this);
+            
         }
 
         int IComparable<ListViewItem>.CompareTo(ListViewItem other)

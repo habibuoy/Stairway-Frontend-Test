@@ -26,9 +26,9 @@ namespace Game.UI
             hoverTween?.Complete();
         }
 
-        public override void OnBegunHover()
+        protected override void OnHoverBegun()
         {
-            base.OnBegunHover();
+            base.OnHoverBegun();
 
             if (IsActive) return;
             hoverTween?.Complete();
@@ -40,7 +40,7 @@ namespace Game.UI
                 .Play();
         }
 
-        public override void OnEndedHover()
+        protected override void OnHoverEnded()
         {
             buttonImage.color = buttonImage.color = IsActive ? activeColor : inactiveColor;
             hoverTween?.Complete();

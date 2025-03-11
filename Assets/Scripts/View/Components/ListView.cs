@@ -141,14 +141,14 @@ namespace Game.UI.View.Components
             ItemClicked?.Invoke(clickable as ListViewItem, clickData);
         }
 
-        private void OnItemBegunHover(ListViewItem listViewItem)
+        private void OnItemBegunHover(Clickable clickable)
         {
-            ItemBegunHover?.Invoke(listViewItem);
+            ItemBegunHover?.Invoke(clickable as ListViewItem);
         }
 
-        private void OnItemEndedHover(ListViewItem listViewItem)
+        private void OnItemEndedHover(Clickable clickable)
         {
-            ItemEndedHover?.Invoke(listViewItem);
+            ItemEndedHover?.Invoke(clickable as ListViewItem);
         }
 
         private void OnItemBegunClick(Clickable clickable, ClickData clickData)
@@ -256,7 +256,7 @@ namespace Game.UI.View.Components
         private void ArrangePositionAndIndex(ListViewItem item, int index)
         {
             if (item == null) return;
-            
+
             item.SetIndex(index);
             item.transform.SetSiblingIndex(index);
         }
