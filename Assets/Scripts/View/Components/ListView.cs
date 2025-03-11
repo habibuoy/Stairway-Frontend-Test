@@ -42,6 +42,7 @@ namespace Game.UI.View.Components
             }
 
             ClearList();
+            bool existingItems = sortedAndPinnedListViewItems.Count > 0;
             
             for (int i = 0; i < listData.Count; i++)
             {
@@ -61,11 +62,29 @@ namespace Game.UI.View.Components
                 listItem.ClickEnded += OnItemEndedClick;
                 listItem.SetInteractable();
                 listItem.SetData(data, i);
+                if (existingItems
+                    && sortedAndPinnedListViewItems.Find(item => item.Data.Id == data.Id) is ListViewItem existing)
+                {
+                    if (existing.IsPinned)
+                    {
+                        listItem.SetPinned();
+                    }
+                }
                 customConfiguration?.Invoke(listItem);
                 listViewItems.Add(listItem);
             }
 
-            sortedAndPinnedListViewItems.AddRange(listViewItems);
+            if (existingItems)
+            {
+                if (!UpdateSortedList())
+                {
+                    sortedAndPinnedListViewItems.Clear();
+                    sortedAndPinnedListViewItems.AddRange(listViewItems);
+                    sortedAndPinnedListViewItems.Sort();
+                }
+
+                RearrangeItemPositions();
+            }
         }
 
         public void ClearList()

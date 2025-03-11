@@ -7,6 +7,8 @@ namespace Game.UI.View.Components
     {
         public Item Item { get; private set; }
 
+        public virtual int Id => Item.IsBlank() ? -1 : Item.ItemSO.GetHashCode();
+
         public virtual bool IsBlankData()
         {
             return Item.IsBlank();

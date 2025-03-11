@@ -60,6 +60,8 @@ namespace Game.UI.View.Components
         public RecipeItem ItemRecipe { get; private set; }
         public int AvailableAmount { get; private set; }
 
+        public int Id => IsBlankData() ? -1 : ItemRecipe.item.GetHashCode();
+
         private int availabilityCount;
 
         public CraftableRecipeAvailability(RecipeItem item, int amount)
