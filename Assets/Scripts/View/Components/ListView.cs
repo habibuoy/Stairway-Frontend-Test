@@ -255,6 +255,8 @@ namespace Game.UI.View.Components
 
         private void ArrangePositionAndIndex(ListViewItem item, int index)
         {
+            if (item == null) return;
+            
             item.SetIndex(index);
             item.transform.SetSiblingIndex(index);
         }
